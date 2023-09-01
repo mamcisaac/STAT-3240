@@ -20,8 +20,9 @@ library(xaringanthemer)
 duo_accent(primary_color = "#006747", secondary_color = "#CFC493",   
 	header_font_google = google_font("Josefin Sans"),
   text_font_google   = google_font("Montserrat", "300", "300i"),
-  code_font_google   = google_font("Droid Mono"))
+  code_font_google   = google_font("Roboto Mono"))
 ```		
+
 
 
 
