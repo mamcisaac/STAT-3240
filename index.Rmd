@@ -1,0 +1,43 @@
+---
+title: "STAT 3240"
+output:
+  html_document: 
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    df_print: kable
+    number_sections: yes
+---
+
+<style>
+h1{font-weight: 400;}
+</style>
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, message=FALSE, warning = FALSE, eval = TRUE, fig.align='center'
+)
+
+library(knitr)
+```
+
+***
+
+
+
+
+# Slides
+
+1. [Linear Regression with One Predictor Variable](src/chapter1.html){target="_blank"}
+2. [Inferences in Regression and Correlation Analysis](src/chapter2.html){target="_blank"}
+3. [Diagnostics and Remedial Measures](src/chapter3.html){target="_blank"}
+4. [Simultaneous Inferences and Other Topics in Regression Analysis](src/chapter4.html){target="_blank"}
+5. [Matrix Approach to Simple Linear Regression Analysis](src/chapter5.html){target="_blank"}
+6. [Multiple Regression I](src/chapter6.html){target="_blank"}
+7. [Multiple Regression II](src/chapter7.html){target="_blank"}
+8. [Regression Models for Quantitative and Qualitative Predictors](src/chapter8.html){target="_blank"}
+9. [Building the Regression Model I](src/chapter9.html){target="_blank"}
+10. [Building the Regression Model II](src/chapter10.html){target="_blank"}
+11. [Building the Regression Model III](src/chapter11.html){target="_blank"}

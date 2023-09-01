@@ -362,31 +362,6 @@ After Sections 1.3, 1.5, 1.6, you should be able to
 * Define point estimates of mean response and residuals
 
 
----
-class: inverse
-
-### In your opinion, why are you being required to complete pre-lecture readings and Warm Up exercises for STAT 3240?
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question introduction) 1 -->
-
-* To have better understanding of the content before class, to make it easier to follow through the class and learn more efficiently
-* We can learn some simple knowledge by ourselves, and learn complex parts during the class. spend time wisely
-* To ensure the lectures don't waste time going over material we can already know and to ensure the Moodle quiz program is working properly.
-
-
----
-class: inverse
-
-### What single point of the assigned reading did you find most difficult or confusing. If you did not find any part of it difficult or confusing, tell me what parts you found most interesting.
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question introduction) 2 -->
-
-
-* In the syllabus, it is mentioned that peer discussion will occur during class. Will this happen in pairs or in small groups? Will this be a time when the professor speaks individually to each group?
-*  I'm planning to buy the book tomorrow.
-* By reading the course syllabus, I think the in class interaction through socrative is most interesting. I think this police could give us a feedback to show the level of understanding of knowledge in real time.
-* I am wondering if I could the 3rd edition of the textbook? Is there any difference?
-
 
 ---
 
@@ -601,7 +576,7 @@ However, throughout the course, we will be stepping back from this and consideri
 
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="60%"}
-include_graphics("../img/Figure1p8.png")
+include_graphics("img/Figure1p8.png")
 ```
 
 
@@ -646,7 +621,7 @@ $$Q = \sum_{i=1}^n [Y_i - (b_0 + b_1 X_i)]^2.$$
 ---
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="100%"}
-include_graphics("../img/Figure1p9.png")
+include_graphics("img/Figure1p9.png")
 ```
 
 ---
@@ -691,7 +666,7 @@ $$\begin{align*}
 ### Properties of Least Squares Estimators
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="100%"}
-include_graphics("../img/Figure1p9.png")
+include_graphics("img/Figure1p9.png")
 ```
 
 * The least squares estimators $b_0$ and $b_1$ are unbiased:
@@ -1261,7 +1236,7 @@ The parameter set that makes the observed data *most likely* is a good set of es
 
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="100%"}
-include_graphics("../img/Figure1p13.png")
+include_graphics("img/Figure1p13.png")
 ```
 
 ---
@@ -1269,7 +1244,7 @@ include_graphics("../img/Figure1p13.png")
 The densities for $Y_1=250$, denoted by $f_1(250; \mu)$ can be found as follows: 
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="50%"}
-include_graphics("../img/Figure1p13a.png")
+include_graphics("img/Figure1p13a.png")
 ```
 
 --
