@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-*_files
-*_cache
-libs
-*.R
+src/*_files
+src/*_cache
+src/libs
+src/*.R
