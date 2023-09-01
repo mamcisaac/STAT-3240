@@ -10,9 +10,6 @@ output:
     df_print: paged
     lib_dir: site_libs
     self_contained: no
+exclude: ["src/*_files", "src/*_cache", "src/libs", "src/*.R"]
 navbar:
   title: STAT 3240
-  left:
-  - text: Term Project
-    href: term_project.html
- 

@@ -28,7 +28,7 @@ library(knitr)
 
 
 
-# Slides
+Slides
 
 1. [Linear Regression with One Predictor Variable](src/chapter1.html){target="_blank"}
 2. [Inferences in Regression and Correlation Analysis](src/chapter2.html){target="_blank"}
@@ -41,3 +41,8 @@ library(knitr)
 9. [Building the Regression Model I](src/chapter9.html){target="_blank"}
 10. [Building the Regression Model II](src/chapter10.html){target="_blank"}
 11. [Building the Regression Model III](src/chapter11.html){target="_blank"}
+
+
+
+
+[Project link](https://mamcisaac.github.io/STAT-3240-project/)

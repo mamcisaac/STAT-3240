@@ -6,3 +6,7 @@ src/*_files
 src/*_cache
 src/libs
 src/*.R
+docs/src/*_files
+docs/src/*_cache
+docs/src/libs
+docs/src/*.R
