@@ -5,11 +5,9 @@ author: "Michael McIsaac"
 institute: "UPEI"
 output:
   xaringan::moon_reader:
-    chakra: libs/remark-latest.min.js
-    lib_dir: libs
-    css: xaringan-themer.css # xaringan-themer-print.css
-    # self_contained: true
+    css: xaringan-themer.css
     nature:
+      slideNumberFormat: "%current%"
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -17,14 +15,13 @@ output:
         scroll: false # disable slide transitions by scrolling
 ---
 
-
-```{r xaringan-themer, include=FALSE}
+```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 duo_accent(primary_color = "#006747", secondary_color = "#CFC493",   
 	header_font_google = google_font("Josefin Sans"),
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Droid Mono"))
-```
+```		
 
 
 
@@ -48,6 +45,7 @@ library(car)
 
 #params
 spending_subset_all = read.csv(here("data", "spending_subset.csv"))
+spending_subset_all$age_group <- as.factor(spending_subset_all$age_group)
 
 spending_subset=spending_subset_all[1:200,]
 
@@ -56,6 +54,8 @@ cdi = as_tibble(read.delim(here("data", "CDI.txt"), sep=" ", header=FALSE)[,-c(1
 names(cdi) = c("county", "state", "land_area", "population", "pop_18_to_34", "pop_65", "number_physicians", "number_hospital_beds", "total_serious_crimes", "high_school_grads", "bachelor_degrees", "poverty_rate", "unemployment_rate", "per_capita_income", "total_personal_income", "region")
 
 tab_model <- function(...,  show.ci=.95){sjPlot::tab_model(...,  show.ci=show.ci, show.se=TRUE, collapse.ci=TRUE, show.stat=TRUE)}
+
+
 ```
 
 
@@ -109,6 +109,7 @@ with(spending_subset, data.frame(clothing= clothing_expenditure, income, food=fo
 spending_subset_c = with(spending_subset, data.frame(clothing= clothing_expenditure, income_c = income-mean(income), food_c=food_expenditure-mean(food_expenditure), income_c2=I((income - mean(income))^2), food_c2 = I((food_expenditure-mean(food_expenditure))^2), incomec_foodc = (income-mean(income))*(food_expenditure-mean(food_expenditure))))
 spending_subset_c %>% cor() %>% round(3)
 ```
+
 ---
 An even better approach is to use **Orthogonal Polynomials**
 
@@ -357,7 +358,7 @@ alr3::pureErrorAnova(clothing_transformed_model_1000)
 
 ```{r, include=FALSE}
 # scatter3d(I(clothing_expenditure^(1/4))~income+food_expenditure, data=spending_subset, fit="quadratic")
-# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("img"), movie="transformed_clothing_food_income_secondorder", convert=TRUE)
+# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("src/img"), movie="transformed_clothing_food_income_secondorder", convert=TRUE)
 ```
 
 ```{r, results='hide', eval=FALSE}
@@ -365,7 +366,7 @@ car::scatter3d(I(clothing_expenditure^(1/4))~income+food_expenditure, data=spend
 ```
 
 .center[
-![transformed_clothing_food_income_secondorder.gif](`r here("img", "transformed_clothing_food_income_secondorder.gif")`)
+![transformed_clothing_food_income_secondorder.gif](`r here("src/img", "transformed_clothing_food_income_secondorder.gif")`)
 ]
 
 ---
@@ -633,7 +634,7 @@ legend("topleft", fill  =c("red", "blue"), legend=c("X2 around 1", "X2 around 5"
 
 ```{r, include=FALSE}
 # scatter3d(Y_additive~X1*X2, fit="linear")
-# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("img"), movie="additive_model_surface", convert=TRUE)
+# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("src/img"), movie="additive_model_surface", convert=TRUE)
 ```
 
 ```{r, results='hide', eval=FALSE}
@@ -641,14 +642,14 @@ car::scatter3d(Y_additive~X1*X2, fit="linear")
 ```
 
 .center[
-![additive_model_surface.gif](`r here("img", "additive_model_surface.gif")`)
+![additive_model_surface.gif](`r here("src/img", "additive_model_surface.gif")`)
 ]
 
 ---
 
 ```{r, include=FALSE}
 # scatter3d(Y_reinforcement~X1*X2, fit="linear")
-# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("img"), movie="additive_model_surface2", convert=TRUE)
+# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("src/img"), movie="additive_model_surface2", convert=TRUE)
 ```
 
 ```{r, results='hide', eval=FALSE}
@@ -656,14 +657,14 @@ car::scatter3d(Y_reinforcement~X1*X2, fit="linear")
 ```
 
 .center[
-![additive_model_surface2.gif](`r here("img", "additive_model_surface2.gif")`)
+![additive_model_surface2.gif](`r here("src/img", "additive_model_surface2.gif")`)
 ]
 
 ---
 
 ```{r, include=FALSE}
 # scatter3d(Y_reinforcement~X1*X2, fit="quad")
-# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("img"), movie="reinforcement_interaction_model_surface", convert=TRUE)
+# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("src/img"), movie="reinforcement_interaction_model_surface", convert=TRUE)
 ```
 
 ```{r, results='hide', eval=FALSE}
@@ -671,7 +672,7 @@ car::scatter3d(Y_reinforcement~X1*X2, fit="quad")
 ```
 
 .center[
-![reinforcement_interaction_model_surface.gif](`r here("img", "reinforcement_interaction_model_surface.gif")`)
+![reinforcement_interaction_model_surface.gif](`r here("src/img", "reinforcement_interaction_model_surface.gif")`)
 ]
 
 
@@ -679,7 +680,7 @@ car::scatter3d(Y_reinforcement~X1*X2, fit="quad")
 
 ```{r, include=FALSE}
 # scatter3d(Y_interference~X1*X2, fit="linear")
-# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("img"), movie="additive_model_surface3", convert=TRUE)
+# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("src/img"), movie="additive_model_surface3", convert=TRUE)
 ```
 
 ```{r, results='hide', eval=FALSE}
@@ -687,14 +688,14 @@ car::scatter3d(Y_interference~X1*X2, fit="linear")
 ```
 
 .center[
-![additive_model_surface3.gif](`r here("img", "additive_model_surface3.gif")`)
+![additive_model_surface3.gif](`r here("src/img", "additive_model_surface3.gif")`)
 ]
 
 ---
 
 ```{r, include=FALSE}
 # scatter3d(Y_interference~X1*X2, fit="quad")
-# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("img"), movie="interference_interaction_model_surface", convert=TRUE)
+# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("src/img"), movie="interference_interaction_model_surface", convert=TRUE)
 ```
 
 ```{r, results='hide', eval=FALSE}
@@ -702,7 +703,7 @@ car::scatter3d(Y_interference~X1*X2, fit="quad")
 ```
 
 .center[
-![interference_interaction_model_surface.gif](`r here("img", "interference_interaction_model_surface.gif")`)
+![interference_interaction_model_surface.gif](`r here("src/img", "interference_interaction_model_surface.gif")`)
 ]
 
 ---
@@ -798,7 +799,9 @@ msummary(clothing_model_centered_interaction)
 * looking at the relationship between clothing expenditure and income in males and females, we can see that the slope for females tends to be slightly larger than it is for males, stating that femals spend more money on clothes as income continues to increase
 
 * I think that given the high p value (0.78) we can assume that spending is not significantly different between male and female.
+
 ---
+
 layout: false
 ### Recap: Section 8.2
 
@@ -891,8 +894,9 @@ So we can uniquely interpret $\beta_0$, $\beta_1$, and $\beta_2$.
 ---
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="90%"}
-include_graphics("../img/Figure8p11.png")
+include_graphics("img/Figure8p11.png")
 ```
+
 ---
 
 Note that we could have alternately chosen to drop $\beta_0$ from our over-parameterized regression model (i.e., used regression through the origin):
@@ -938,11 +942,13 @@ spending_subset %>% datatable(options=list(scrollY=200))
 
 spending_subset$type_of_dwelling = factor(spending_subset$type_of_dwelling, levels=c("other", "single_detached", "semi_detached", "row_house", "apartment", "duplex"))
 ```
+
 ```{r}
 table(spending_subset$type_of_dwelling)
 ```
 
 ---
+
 .small[
 Let 
 $$X_1 = income$$
@@ -1047,8 +1053,9 @@ xyplot(clothing_expenditure~type_of_dwelling, data=spending_subset, type=c("p", 
 ```{r}
 table(spending_subset$age_group)
 msummary(lm(clothing_expenditure~income+age_group, data=spending_subset))
-xyplot(clothing_expenditure~age_group, data=spending_subset, type=c("p", "smooth"))
 ```
+
+
 ]
 
 ---
@@ -1057,9 +1064,13 @@ xyplot(clothing_expenditure~age_group, data=spending_subset, type=c("p", "smooth
 table(as.numeric(spending_subset$age_group))
 msummary(lm(clothing_expenditure~income+as.numeric(age_group), data=spending_subset))
 ```
+
+---
+
 ```{r, fig.height=4, echo=FALSE}
 xyplot(clothing_expenditure~age_group, data=spending_subset, type=c("p", "r"))
 ```
+
 ---
 
 ```{r}
@@ -1124,13 +1135,13 @@ $$E[Y] = \beta_0 + \beta_1 X_{i1} + \beta_2 (0) + \beta_3 X_{i1} (0) = \beta_0 +
 ---
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="90%"}
-include_graphics("../img/Figure8p14.png")
+include_graphics("img/Figure8p14.png")
 ```
 
 ---
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="90%"}
-include_graphics("../img/Figure8p15.png")
+include_graphics("img/Figure8p15.png")
 ```
 
 ---
@@ -1229,6 +1240,7 @@ msummary(clothing_model)
 ```
 
 ---
+
 * **Compare and contrast those who are currently married and those who are not currently married in terms of their average values of clothing expenditure.**
 
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
@@ -1287,6 +1299,7 @@ After Sections 8.5-8.7, you should be able to
 
 
 ---
+
 class: inverse
 ```{r, echo=FALSE}
 spending_subset=spending_subset_all

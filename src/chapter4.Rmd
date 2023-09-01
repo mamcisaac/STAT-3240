@@ -5,11 +5,9 @@ author: "Michael McIsaac"
 institute: "UPEI"
 output:
   xaringan::moon_reader:
-    chakra: libs/remark-latest.min.js
-    lib_dir: libs
-    css: xaringan-themer.css # xaringan-themer-print.css
-    # self_contained: true
+    css: xaringan-themer.css
     nature:
+      slideNumberFormat: "%current%"
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -17,14 +15,14 @@ output:
         scroll: false # disable slide transitions by scrolling
 ---
 
-
-```{r xaringan-themer, include=FALSE}
+```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 duo_accent(primary_color = "#006747", secondary_color = "#CFC493",   
 	header_font_google = google_font("Josefin Sans"),
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Droid Mono"))
-```
+```		
+
 
 
 
@@ -642,10 +640,13 @@ lines(c(-10, 110), c(-10, 110), col="grey", lty=2)}
 
 ---
 
+```{r, echo=FALSE}
+set.seed(354)
+```
+
 .pull-left[
 Introducing measurement error into $Y$
 ```{r measurement_error_Y, eval=TRUE, fig.show='animate', ffmpeg.format='gif', dev='jpeg', cache=TRUE, interval=0.025, aniopts="controls"}
-set.seed(354)
 X = 1:100
 Y = X
 plot(X, Y, ylim=c(-10, 110), xlim=c(-10, 110))
@@ -656,7 +657,6 @@ plot(X, Y, ylim=c(-10, 110), xlim=c(-10, 110))
 abline(lm(Y~X), lwd=2)
 lines(c(-10, 110), c(-10, 110), col="grey", lty=2, lwd=2)}
 ```
-![measurement_error_Y.gif](`r here("img", "measurement_error_Y.gif")`)
 ]
 
 .pull-right[
@@ -672,7 +672,6 @@ plot(X, Y, ylim=c(-10, 110), xlim=c(-10, 110))
 abline(lm(Y~X), lwd=2)
 lines(c(-10, 110), c(-10, 110), col="grey", lty=2, lwd=2)}
 ```
-![measurement_error_X.gif](`r here("img", "measurement_error_X.gif")`)
 ]
 
 ---
@@ -763,7 +762,7 @@ layout: false
 Consider the impact of the choice of $X$ levels:
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="60%"}
-include_graphics("../img/Figure171.png")
+include_graphics("img/Figure171.png")
 ```
 
 ---

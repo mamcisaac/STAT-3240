@@ -5,11 +5,9 @@ author: "Michael McIsaac"
 institute: "UPEI"
 output:
   xaringan::moon_reader:
-    chakra: libs/remark-latest.min.js
-    lib_dir: libs
-    css: xaringan-themer.css # xaringan-themer-print.css
-    #self_contained: true
+    css: xaringan-themer.css
     nature:
+      slideNumberFormat: "%current%"
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -17,14 +15,13 @@ output:
         scroll: false # disable slide transitions by scrolling
 ---
 
-
-```{r xaringan-themer, include=FALSE}
+```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 duo_accent(primary_color = "#006747", secondary_color = "#CFC493",   
 	header_font_google = google_font("Josefin Sans"),
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Droid Mono"))
-```
+```		
 
 
 

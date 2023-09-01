@@ -5,18 +5,15 @@ author: "Michael McIsaac"
 institute: "UPEI"
 output:
   xaringan::moon_reader:
-    chakra: libs/remark-latest.min.js
-    lib_dir: libs
-    css: xaringan-themer.css # xaringan-themer-print.css
-    # self_contained: true
+    css: xaringan-themer.css
     nature:
+      slideNumberFormat: "%current%"
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       navigation:
         scroll: false # disable slide transitions by scrolling
 ---
-
 
 ```{r xaringan-themer, include=FALSE}
 library(xaringanthemer)
@@ -25,6 +22,7 @@ duo_accent(primary_color = "#006747", secondary_color = "#CFC493",
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Droid Mono"))
 ```
+
 
 
 
@@ -326,7 +324,7 @@ I.e., we are looking at whether residuals fall in a horizontal band around 0.
 
 .pull-left[
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="60%"}
-include_graphics("../img/Figure3p4a.png")
+include_graphics("img/Figure3p4a.png")
 ```
 ]
 
@@ -334,7 +332,7 @@ vs, for example,
 
 .pull-right[
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="60%"}
-include_graphics("../img/Figure3p4b.png")
+include_graphics("img/Figure3p4b.png")
 ```
 ]
 
@@ -421,7 +419,7 @@ I.e., we are looking at whether residuals fall in a horizontal band around 0.
 
 .pull-left[
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="60%"}
-include_graphics("../img/Figure3p4a.png")
+include_graphics("img/Figure3p4a.png")
 ```
 ]
 
@@ -429,7 +427,7 @@ vs, for example,
 
 .pull-right[
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="60%"}
-include_graphics("../img/Figure3p4c.png")
+include_graphics("img/Figure3p4c.png")
 ```
 ]
 
@@ -545,7 +543,7 @@ layout: false
 
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="60%"}
-include_graphics("../img/Figure3p4d.png")
+include_graphics("img/Figure3p4d.png")
 ```
 
 ---
@@ -569,7 +567,7 @@ Look for linearity in a normal probability (Q-Q) plot
 
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, fig.height=4}
-include_graphics("../img/Figure3p9.png")
+include_graphics("img/Figure3p9.png")
 ```
 
 
@@ -582,6 +580,7 @@ class: inverse
 ```{r, fig.height=5.5, fig.cap="", results="hide"}
 car::qqPlot(resid(clothing_model), ylab="Residuals")
 ```
+
 
 ---
 
@@ -632,7 +631,7 @@ Look at whether there are other key variables that could provide important addit
 These additional variables may make our assumptions more tenable, or they may simply make our model better at predicting. 
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, fig.height=4}
-include_graphics("../img/Figure3p4d.png")
+include_graphics("img/Figure3p4d.png")
 ```
 
 
@@ -768,13 +767,14 @@ olsrr::ols_test_normality(clothing_model)
 ```{r, fig.height=3, fig.cap="", results="hide"}
 car::qqPlot(resid(clothing_model), ylab="Residuals")
 ```
+
 ---
 
 layout: false
 
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="60%"}
-include_graphics("../img/Lumley.png")
+include_graphics("img/Lumley.png")
 ```
 
 <!-- errors being normally distributed ==> \beta_0 and \beta_1 being normally distributed ==> \hat Y being normally distributed, so CIs and hypothesis testing are appropriate.  -->
@@ -959,13 +959,13 @@ F^\ast &= \frac{SSE(R)−SSE(F)}{df_R−df_F} \div \frac{SSE(F)}{df_F}\\
 ---
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="100%"}
-include_graphics("../img/Figure3p6b.png")
+include_graphics("img/Figure3p6b.png")
 ```
 
 ---
 
 ```{r, bank, include=FALSE}
-bank_data = read.delim( "/Users/michaelmcisaac/Dropbox/Teaching/STAT 3240/Kutner Data/Chapter  3 Data Sets/CH03TA04.txt", header =FALSE, sep=" ")
+bank_data = read.delim(here("data", "CH03TA04.txt"), header =FALSE, sep=" ")
 
 names(bank_data) = c("size_of_minimum_deposits", "number_of_new_accounts")
 ```

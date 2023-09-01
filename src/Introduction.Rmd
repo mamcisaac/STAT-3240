@@ -2,15 +2,25 @@
 title: 'Introduction'
 author: "Michael McIsaac"
 output:
-  slidy_presentation: 
-    duration: 50
-    mathjax: local
-    self_contained: false
-    df_print: paged
-  ioslides_presentation: default
-  beamer_presentation: 
-    keep_tex: yes
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      navigation:
+        scroll: false # disable slide transitions by scrolling
 ---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+duo_accent(primary_color = "#006747", secondary_color = "#CFC493",   
+	header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Droid Mono"))
+```		
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -120,7 +130,6 @@ knitr::include_graphics(here("img", "stat_3240_syllabus4.png"))
 `R` will be used throughout the course and statistical software is required in all homework.
 
 * `R` is completely free software. It can be downloaded from http://cran.r-project.org/ and installed on your computer (it is available for a wide variety of UNIX platforms, Windows, and MacOS)
-* [R Studio Server: http://137.149.157.26](http://137.149.157.26){target="_blank"}
 
 
 

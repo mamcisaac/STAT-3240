@@ -5,11 +5,9 @@ author: "Michael McIsaac"
 institute: "UPEI"
 output:
   xaringan::moon_reader:
-    chakra: libs/remark-latest.min.js
-    lib_dir: libs
-    css: xaringan-themer.css # xaringan-themer-print.css
-    # self_contained: true
+    css: xaringan-themer.css
     nature:
+      slideNumberFormat: "%current%"
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -17,15 +15,13 @@ output:
         scroll: false # disable slide transitions by scrolling
 ---
 
-
-```{r xaringan-themer, include=FALSE}
+```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 duo_accent(primary_color = "#006747", secondary_color = "#CFC493",   
 	header_font_google = google_font("Josefin Sans"),
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Droid Mono"))
-```
-
+```		
 
 
 ```{r setup, include=FALSE}
@@ -47,6 +43,7 @@ library(DT)
 library(car)
 library(psych)
 library(olsrr)
+library(GGally)
 
 #params
 spending_subset_all = read.csv(here("data", "spending_subset.csv"))
@@ -148,8 +145,11 @@ abline(0, 0, lty = 2)
 
 ---
 ```{r}
+
 avPlots(fit)
+
 ```
+
 ---
 
 ```{r}
@@ -187,6 +187,7 @@ plot(clothing_expenditure~recreation_expenditure, data=spending_subset); abline(
 plot(clothing_expenditure~miscellaneous_expenditure, data=spending_subset); abline(lm(clothing_expenditure~miscellaneous_expenditure, data=spending_subset))
 plot(clothing_expenditure~I(marital_status=="married"), data=spending_subset); abline(lm(clothing_expenditure~I(marital_status=="married"), data=spending_subset))
 ```
+
 ---
 layout: false
 
@@ -194,7 +195,7 @@ layout: false
 
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="90%"}
-include_graphics("../img/Figure10p5.png")
+include_graphics("img/Figure10p5.png")
 ```
 
 ---
@@ -344,7 +345,7 @@ life_insurance %>% datatable()
 ```
 
 .center[
-![insurance.gif](`r here("img", "insurance.gif")`)
+![insurance.gif](`r here("src", "img", "insurance.gif")`)
 ]
 
 ---
@@ -383,6 +384,7 @@ olsrr::ols_plot_resid_stud(clothing_model)
 
 qt(1-.05/(2*dim(spending_subset)[1]), df=clothing_model$df.residual-1)
 ```
+
 ---
 
 
@@ -458,7 +460,7 @@ $$r_i = \frac{e_i}{s\{e_i\}} = \frac{e_i}{\sqrt{MSE (1 - h_{ii})}}$$
 ---
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="90%"}
-include_graphics("../img/Figure10p6.png")
+include_graphics("img/Figure10p6.png")
 ```
 
 ---
@@ -506,6 +508,7 @@ cbind(clothing_data, high_leverage = hatvalues(clothing_model)>2*mean(hatvalues(
 ```{r}
 plot(fitted(clothing_model), rstudent(clothing_model))
 ```
+
 ---
 
 
@@ -579,7 +582,7 @@ t(Xnew4) %*% solve(t(X) %*% X) %*% Xnew4
 ---
 
 ```{r}
-pairs(spending_subset %>% select(clothing_expenditure, income, marital_status, sex, personal_care_expenditure))
+GGally::ggpairs(spending_subset %>% select(clothing_expenditure, income, marital_status, sex, personal_care_expenditure))
 ```
 
 ---
