@@ -1,0 +1,760 @@
+---
+title: 'Chapter 7: Multiple Regression II'
+subtitle: 'STAT 3240'
+author: "Michael McIsaac"
+institute: "UPEI"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    css: xaringan-themer.css # xaringan-themer-print.css
+    # self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      navigation:
+        scroll: false # disable slide transitions by scrolling
+---
+
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+duo_accent(primary_color = "#006747", secondary_color = "#CFC493",   
+	header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Droid Mono"))
+```
+
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.retina = 3, warning = FALSE, message = FALSE, fig.align="center", fig.height=5.5)
+options(DT.options = list(scrollX = TRUE, pageLength=20, scrollY = 250))
+options(digits = 4)
+options(show.signif.stars=FALSE)
+
+library(here)
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(mosaic)
+library(DT)
+library(car)
+
+#params
+spending_subset_all = read.csv(here("data", "spending_subset.csv"))
+
+spending_subset=spending_subset_all[1:200,]
+
+par(lwd=3,cex=1.5) 
+cdi = as_tibble(read.delim(here("data", "CDI.txt"), sep=" ", header=FALSE)[,-c(1:2)] %>% mutate(V18 = recode_factor(V18, "NE", "NC", "S", "W")))
+names(cdi) = c("county", "state", "land_area", "population", "pop_18_to_34", "pop_65", "number_physicians", "number_hospital_beds", "total_serious_crimes", "high_school_grads", "bachelor_degrees", "poverty_rate", "unemployment_rate", "per_capita_income", "total_personal_income", "region")
+
+tab_model <- function(...,  show.ci=.95){sjPlot::tab_model(...,  show.ci=show.ci, show.se=TRUE, collapse.ci=TRUE, show.stat=TRUE)}
+```
+
+
+
+
+### Learning Objectives for Sections 7.1-7.3
+
+After Sections 7.1-7.3, you should be able to 
+
+- Understand the concept of the extra sums of squares principle
+- Conduct and interpret tests concerning regression coefficients using ESS principle 
+
+---
+
+### 7.1 Extra Sums of Squares
+
+An **extra sum of squares** measures the marginal reduction in the error sum of squares when one or several predictor variables are added to the regression model, given that other predictor variables are already in the model. 
+
+Equivalently, one can view an extra sum of squares as measuring the marginal increase in the regression sum of squares when one or several predictor variables are added to the regression model.
+
+---
+
+An extra sum of squares involves the difference between 
+
+* the regression sum of squares for the regression model containing both the original $X$ variable(s) and the new $X$ variable(s) 
+and 
+* the regression sums of squares for the regression model containing the $X$ variable(s) already in the model
+
+E.g., if $X_1$ is the "extra" variable:
+
+$$SSR(X_1| X_2) = SSR(X_1, X_2) - SSR(X_2)$$ 
+
+If $X_2$ is the "extra" variable:
+
+$$SSR(X_2| X_1) = SSR(X_1, X_2) - SSR(X_1)$$ 
+---
+
+### Decomposition of *SSR* into Extra Sums of Squares
+
+Notice that we can decompose $SSR(X_1, X_2)$ as 
+
+$$SSR(X_1, X_2) = SSR(X_1| X_2) + SSR(X_2)$$ 
+
+or
+
+$$SSR(X_1, X_2) = SSR(X_2| X_1) +  SSR(X_1)$$ 
+--
+
+These get at different questions:
+
+* How much variability in $Y$ is explained by $X_2$ alone? how much *additional* variability is explained by adding in $X_1$?
+
+vs
+
+* How much variability in $Y$ is explained by $X_1$ alone? how much *additional* variability is explained by adding in $X_2$?
+
+---
+
+
+Note that the `R` function `anova` provides *Sequential* or *Extra sums of squares* which reports how much variation is explained by the variable after accounting for everything that has *previously* been added to the model 
+
+* (e.g., $SSR(X_1), SSR(X_2|X_1), SSR(X_3|X_1, X_2)$, etc ).
+
+However, very similar looking functions (e.g., `Anova` or even the t-tests reported in the `summary` of `lm`) will commonly report *Adjusted* or *Type II sums of squares* that show how much variation is explained by the variable after accounting for everything else that *will be* added to the model 
+
+* (e.g., $SSR(X_1| X_2, X_3)$, $SSR(X_2| X_1, X_3)$, $SSR(X_3| X_1, X_2)$). 
+
+---
+layout: true
+class: inverse
+
+---
+Notice how the *Sequential sums of squares* differ when the order in which variables are added changes:
+
+```{r, message=FALSE, include=TRUE}
+clothing_model = lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure+ miscellaneous_expenditure, data=spending_subset)
+anova(clothing_model)
+```
+
+---
+Notice how the *Sequential sums of squares* differ when the order in which variables are added changes:
+
+```{r, message=FALSE, include=TRUE}
+clothing_model_reordered = lm(clothing_expenditure~miscellaneous_expenditure+income+sex+food_expenditure+recreation_expenditure, data=spending_subset)
+anova(clothing_model_reordered) 
+```
+
+---
+
+Notice how the *Adjusted sums of squares* don't differ when the order in which variables are added changes:
+
+```{r, message=FALSE, include=TRUE}
+clothing_model = lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure+ miscellaneous_expenditure, data=spending_subset)
+Anova(clothing_model)
+```
+
+---
+
+Notice how the *Adjusted sums of squares* don't differ when the order in which variables are added changes:
+
+
+```{r, message=FALSE, include=TRUE}
+clothing_model_reordered = lm(clothing_expenditure~miscellaneous_expenditure+income+sex+food_expenditure+recreation_expenditure, data=spending_subset)
+Anova(clothing_model_reordered) 
+```
+
+---
+
+Notice again how the *Adjusted sums of squares* don't differ:
+
+```{r, message=FALSE, include=TRUE}
+msummary(clothing_model)
+```
+
+
+```{r, message=FALSE, include=TRUE}
+msummary(clothing_model_reordered) 
+```
+
+---
+layout: false
+
+### Test Whether All $\beta_k=0$
+
+This is the *overall $F$ test* of whether or not there is a regression relation between the response variable $Y$ and the set of $X$ variables:
+
+$H_0: \beta_1 = \beta_2 = \ldots  = \beta_{p-1} =0$  
+
+$H_a:$ not all $\beta_k (k=1, \ldots, p-1)$ equal $0$  
+
+and the test statistic is:
+$$F^\ast = \frac{SSR(X_1, \ldots , X_{p-1})}{p-1} \div \frac{SSE(X_1, \ldots , X_{p-1})}{n-p} = \frac{MSR}{MSE}$$
+
+If $H_0$ holds, $F^\ast \sim F(p - 1, n - p)$. Large values of $F^\ast$ lead to conclusion $H_a$.
+
+---
+### Test Whether a Single $\beta_k=0$
+
+
+This is a *partial $F$ test* of whether a particular regression coefficient $\beta_k$ equals $0$:
+
+$H_0: \beta_k =0$  
+
+$H_a: \beta_k \neq 0$  
+
+and the test statistic is:
+$$\begin{align*} 
+F^\ast &= \frac{SSR(X_k | X_1, \ldots, X_{k-1}, X_{k+1}, \ldots, X_{p-1})}{1} \div \frac{SSE(X_1, \ldots , X_{p-1})}{n-p} \\
+ & = \frac{MSR(X_k | X_1, \ldots, X_{k-1}, X_{k+1}, \ldots, X_{p-1})}{MSE}
+\end{align*}$$
+
+If $H_0$ holds, $F^\ast \sim F(1, n - p)$. Large values of $F^\ast$ lead to conclusion $H_a$.
+
+--
+
+An equivalent test statistic is 
+
+$$t^\ast = \frac{b_k}{s \{ b_k \}}$$
+
+---
+### Test Whether Some $\beta_k=0$
+
+
+This is another *partial $F$ test*:
+
+$H_0: \beta_q = \beta_{q+1} = \cdots = \beta_{p-1} =0$  
+
+$H_a:$ not all of these $\beta_k$ equal $0$  
+ 
+
+and the test statistic is:
+$$\begin{align*} 
+F^\ast &= \frac{SSR(X_q, \ldots, X_{p-1} | X_1, \ldots, X_{q-1})}{p-q} \div \frac{SSE(X_1, \ldots , X_{p-1})}{n-p} \\
+ & = \frac{MSR(X_q, \ldots, X_{p-1} | X_1, \ldots, X_{q-1})}{MSE}
+\end{align*}$$
+
+
+If $H_0$ holds, $F^\ast \sim F(p-q, n - p)$. Large values of $F^\ast$ lead to conclusion $H_a$.
+
+--
+
+Notice that the previous two tests were just special cases of this one with $q=1$ and $p-q=1$.
+
+---
+
+### Other Tests
+
+These extra sums of squares tests - where we are testing whether one or several $\beta_k$ is equal to 0 - are special cases of the general linear test appraoch. 
+
+However, we can answer an even broader range of questions using the general linear test approach. 
+
+Consider testing whether $\beta_1= \beta_2$ in the full model
+
+$$Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i3} + \varepsilon_i$$
+
+This is equivalent to testing the adequacy of the reduced model
+$$Y_i = \beta_0 + \beta_1 (X_{i1} + X_{i2}) + \beta_3 X_{i3} + \varepsilon_i$$
+
+which we can accomplish using the general $F^\ast$ test statistic (2.70) with $1$ and $n-4$ degrees of freedom. 
+
+---
+
+Similarly, we might want to test whether $\beta_1=3$ and $\beta_3=5$ in the full model
+
+$$Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i3} + \varepsilon_i$$
+which could be tested by testing the adequacy of the reduced model
+$$Y_i - 3 X_{i1} - 5 X_{i3}= \beta_0 + \beta_2 X_{i2} + \varepsilon_i$$
+using the general linear test statistic $F^\ast$ with $2$ and $n-4$ degrees of freedom. 
+
+
+---
+layout: true
+class: inverse
+
+---
+```{r, echo=FALSE}
+spending_subset=spending_subset_all[1:500,]
+```
+ 
+```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
+clothing_model = lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure+ miscellaneous_expenditure, data=spending_subset)
+msummary(clothing_model)
+```
+ 
+```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
+clothing_model_reordered = lm(clothing_expenditure~miscellaneous_expenditure+income+sex+food_expenditure+recreation_expenditure, data=spending_subset)
+msummary(clothing_model_reordered)
+```
+
+---
+
+```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
+anova(clothing_model)
+```
+
+```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
+anova(clothing_model_reordered)
+```
+
+---
+
+* **Based on the extra sums of squares principle, is $\beta_{\text{misc}}$ (the slope parameter associated with miscellaneous_expenditure) equal to zero? Justify your answer and explain what your finding means in the context of the problem. **
+
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
+<!-- warm up question 7) 0 -->
+
+* The general linear test statistic to test if Bminc = 0 is F* = 1.335069394 (1st ANOVA table), which has a p-value 0.2484639164 > 0.1, so we fail to prove Bmisc different than 0 (fail to reject the null hypothesis). So, adding Xmisc to the model, when the other 4 X variables are already in the model, does not give a good marginal increase for SSR to be valuable to the model. So, the reduced model that excludes BmiscXmisc is appropriate, and we can drop BmiscXmisc.
+
+* With the F value being 13.19 for miscellaneous expenditure, and the p value being close to zero it tells us that the chance of Bmisc being equal to zero is very unlikely. We conclude that miscellaneous expenditure is an important predictor variable for our model (it cannot be dropped) which is designed to predict response behavior of clothing expenditure.
+
+
+
+---
+
+* **Based on the extra sums of squares principle, is $\beta_{\text{misc}}$ (the slope parameter associated with miscellaneous_expenditure) equal to zero? Justify your answer and explain what your finding means in the context of the problem. **
+
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
+<!-- warm up question 7) 0 -->
+
+* Yes, based on the difference in the sum of squares and also the p values between the full model and the reduced model, we see that there is no relation associated the miscellaneous expenditure and therefore, we conclude the slope equals zero.
+
+* When miscellaneous expenditure is added first there is way more error associated with it compared to when it is added last. The large p value when it is added last compared to first also tell us that adding miscellaneous expenditure to the model doesn't really make it any better, because of this I would say that we can't say for sure that Beta for miscellaneous expenditure isn't equal to zero. Miscellaneous expenditure isn't a good predictor of clothing expenditure.
+
+
+---
+
+```{r}
+with(spending_subset, data.frame(income, food=food_expenditure, sex= sex=="male", rec=recreation_expenditure, misc=miscellaneous_expenditure)) %>% cor()
+```
+
+
+---
+* **Are men and women different in terms of the amount they spend on clothing? Justify your answer.**
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
+<!-- warm up question 7) 2 -->
+
+* Different in that the expected average clothing expenditure for males with zero income is less than that for females of similar income. The rate of change for both however is equal.
+
+*  Yes. As we move from considering women to considering men, we see a decrease of `$`425. This means that, on average, a male will spend `$`425 less on clothing than a female.
+
+* We need to do a F test, using one reduced model(drop the predictor variable sex) and a full model(using all predictor variable), SSE of reduced model - SSE of full model and divide the value by # of degree freedom and divided the value by the mean square error of the full model, if the F value is large then we conclude the men and women are different in terms of the amount they spend on clothing.
+
+* The sex category seems to not be equal to zero so I would say that it is a predictor that adds to the error reduction, therefore men and women must spend differently.
+---
+
+* **Are men and women different in terms of the amount they spend on clothing? Justify your answer.**
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
+<!-- warm up question 7) 2 -->
+
+* Men and women are different in terms of the amount they spend on clothing. When income is zero, the average amount women spend on clothing is 263.9887 dollars, and for men is 0.
+
+* Yes, they are different. We know this because the slope of the male regression line is negative, meaning the females in our dataset spend more on clothes than males.
+
+
+---
+
+* **Are all $\beta_k$ equal to 0 here? **
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
+<!-- warm up question 7) 3-->
+
+* No, for the F-statistics is 30.72419 on 5 and 494 DF, with p-value almost 0, which implies rejection of null.
+
+* No, the f-statistic is too large. Also the very small p-value (2.2204e-16) indicates that we should reject the null hypothesis and conclude that at least some of the slope parameters are not equal to zero.
+---
+layout: false
+
+### Recap: Sections 7.1-7.3
+
+After Sections 7.1-7.3, you should be able to 
+
+- Understand the concept of the extra sums of squares principle
+- Conduct and interpret tests concerning regression coefficients using ESS principle 
+
+---
+
+
+### Learning Objectives for Sections 7.4, 7.6
+
+After Sections 7.4 and 7.6, you should be able to 
+
+- Compute and interpret coefficients of partial determination
+- Understand multicollinearity and its effects
+
+---
+
+### 7.4: Coefficients of Partial Determination
+
+Recall that the *coefficient of multiple determination*, $R^2$, measures the proportionate reduction in the variation of $Y$ achieved by the introduction of the entire set of $X$ variables considered in the model. 
+
+A *coefficient of partial determination*, in contrast, measures the marginal contribution of one $X$ variable when all others are already included in the model.
+
+For example, the coefficient of partial determination between $Y$ and $X_2$, given that $X_1$ is in the model is 
+
+$$R^2_{Y 2 | 1	} = \frac{ SSR(X_2| X_1) }{SSE(X_1)}$$ 
+
+--
+
+That is, the coefficient of partial determination is the percent of variation that cannot be explained in the reduced model, but can be explained by the predictors specified in a fuller model. 
+
+---
+
+Coefficients of partial determination can take on values between $0$ and $1$
+
+The coefficient of partial dertermination $R_{Y 1|2}$ measures the relation between $Y$ and $X_1$ when both of these variables
+have been adjusted for their linear relationships to $X_2$. 
+
+I.e., a coefficient of partial determination can be interpreted as a coefficient of simple determination of these residuals 
+
+---
+
+
+Consider a multiple regression model with two $X$ variables. Suppose we regress $Y$ on $X_2$ and obtain the residuals:
+$$e(Y|X_2) = Y_i - \hat{Y}_i(X_2)$$
+where $\hat{Y}_i(X_2)$ denotes the fitted values of $Y$ when $X_2$ is in the model.  
+
+Suppose we further regress $X_1$ on $X_2$ and obtain the residuals:
+$$e(X_1|X_2) = X_{i1} - \hat{X}_{i1}(X_2)$$
+where $\hat{X}_{i1}(X_2)$ denotes the fitted values of $X_1$ 	in the regression of $X_1$ on $X_2$.  
+
+The coefficient of simple determination $R^2$ between these two sets of residuals equals the coefficient of partial determination $R_{Y 1 | 2}$
+
+--
+
+* The plot of the residuals $e(Y|X_2)$ against $e(X_1|X_2)$ provides a graphical representation of the strength of the relationship between $Y$ and $X_1$, adjusted for $X_2$. Such plots of residuals, called added variable plots or partial regression plots, are discussed in Section 10.1.	
+
+
+
+---
+
+### Coefficients of Partial Correlation
+
+The square root of a coefficient of partial determination is called a **coefficient of partial correlation.**
+
+It is given the same sign as that of the corresponding regression coefficient in the fitted regression function. 
+
+Coefficients of partial correlation are frequently used in practice, although they do not have as clear a meaning as coefficients of partial determination. 
+
+One use of partial correlation coefficients is in computer routines for finding the best predictor variable to be selected next for inclusion in the regression model. We discuss this use in Chapter 9.
+
+
+
+---
+layout: true
+class: inverse
+---
+
+```{r, echo=TRUE}
+## Use all data from now on. 
+spending_subset=spending_subset_all[1:500,]
+spending_subset %>% datatable()
+```
+
+---
+
+ 
+```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
+clothing_model = lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure+ miscellaneous_expenditure, data=spending_subset)
+msummary(clothing_model)
+```
+
+---
+```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
+anova(clothing_model)
+```
+
+--
+
+$$\begin{align*} R^2_{Y 2 | 1	} &= \frac{ SSR(X_2| X_1) }{SSE(X_1)} \\ &= \frac{2927550.874}{1083247161.692 + 2927550.874} \\ &\approx 0.002695\end{align*}$$ 
+
+---
+
+```{r, include=FALSE }
+partialR2 <- function(model.full, model.reduced){
+    anova.full <- anova(model.full)
+    anova.reduced <- anova(model.reduced)
+
+    sse.full <- tail(anova.full$"Sum Sq", 1)
+    sse.reduced <- tail(anova.reduced$"Sum Sq", 1)
+
+    pR2 <- (sse.reduced - sse.full) / sse.reduced
+    return(pR2)
+
+}
+partialR2(lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure+ miscellaneous_expenditure, data=spending_subset), lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure, data=spending_subset))
+```
+
+
+* **Compute and interpret the coefficient of partial determination for miscellaneous expenses.**
+
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
+<!-- warm up question 7) 1 -->
+
+* (Using the 1st ANOVA table) The coefficient of partial determination for miscellaneous expenses is equal to SSR (Xmisc | the other 4 Xs are in the model) divided by SSE(The 4 first Xs in the model). The answer is 0.0027026 (rounded). So, the variation in Y (that remained after including income, sex, food expenditures, and recreation expenditures in the model) is reduced by 0.2706% when Xmisc is introduced into the model.
+
+* The coefficient of partial determination for miscellaneous expenses is 0.00270256962. This indicates that the marginal contribution of miscellaneous expenses after all other variables are included in the model is insignificant.
+
+
+
+
+
+---
+layout: false
+
+### 7.6: Multicollinearity and Its Effects
+
+
+When the predictor variables are correlated among themselves, *intercorrelation* or *multi-collinearity* among them is said to exist. 
+
+* **multi-collinearity** generally refers to situations where the correlation among the predictor variables is very high.
+
+---
+layout: true
+class: inverse
+---
+
+### Example with uncorrelated predictor variables (Table 7.6):
+
+```{r, echo=FALSE, results="hide"}
+crew_data = as_tibble(read.delim(here("data", "work_crew.txt"), sep=" ", header=TRUE))[, 3:1]
+crew_data2 = crew_data
+crew_data2$crew_size = crew_data2$crew_size + 4
+crew_data2$productivity = round(rnorm(8, .375 + 5.375*crew_data2$crew_size + 9.250*crew_data2$bonus_pay, 1.88))
+crew_data = rbind(crew_data, crew_data2)
+```
+
+```{r, echo=FALSE}
+crew_data %>% datatable()
+```
+---
+
+
+```{r, message=FALSE, include=TRUE, fig.height=7}
+plot(crew_data)
+```
+
+---
+
+```{r, message=FALSE, include=TRUE}
+cor(crew_data)      %>% round(3) %>% datatable()
+```
+
+---
+
+```{r}
+mod_full = lm(productivity~crew_size + bonus_pay, data=crew_data)
+msummary(mod_full)
+anova(mod_full)
+```
+
+---
+
+```{r}
+mod_x1 = lm(productivity~crew_size, data=crew_data)
+msummary(mod_x1)
+anova(mod_x1)
+```
+
+---
+
+```{r}
+mod_x2 = lm(productivity~bonus_pay, data=crew_data)
+msummary(mod_x2)
+anova(mod_x2)
+```
+
+---
+### Example of the Problem with Perfect Multicollinearity
+
+```{r, echo=FALSE}
+crew_data <- crew_data %>% mutate(crew_size_plus_1 = crew_size+1, crew_size_plus_bonus_pay = crew_size + bonus_pay)
+crew_data %>% datatable()
+```
+
+---
+
+```{r, message=FALSE, include=TRUE, fig.height=7}
+plot(crew_data)
+```
+
+---
+
+```{r, message=FALSE, include=TRUE}
+cor(crew_data)      %>% round(3) %>% datatable()
+```
+
+---
+
+```{r}
+lm(productivity~crew_size + crew_size_plus_1, data=crew_data)$coefficients                              
+lm(productivity~crew_size + bonus_pay + crew_size_plus_bonus_pay, data=crew_data)$coefficients
+```
+
+---
+### Example of the Problem with Multicollinearity
+
+```{r, echo=FALSE}
+crew_data <- crew_data %>% mutate(crew_size_plus_noise1 = crew_size+rnorm(8,0, .1), crew_size_plus_noise2 = crew_size+rnorm(8,0, .01)) %>% select(productivity, crew_size, bonus_pay, crew_size_plus_noise1, crew_size_plus_noise2)
+crew_data %>% datatable()
+```
+---
+
+
+```{r, message=FALSE, include=TRUE, fig.height=7}
+plot(crew_data)
+```
+
+---
+
+```{r, message=FALSE, include=TRUE}
+cor(crew_data)      %>% round(7) %>% datatable(options=list(scrollY=350))
+```
+
+---
+```{r}
+lm(productivity~crew_size, data=crew_data)$coefficients
+lm(productivity~crew_size + crew_size_plus_noise1, data=crew_data)$coefficients
+lm(productivity~crew_size + crew_size_plus_noise2, data=crew_data)$coefficients
+```
+
+---
+##### Consider the effects of multicollinearity on $s \{ b_k\}$:
+
+```{r, echo=FALSE}
+msummary(lm(productivity~crew_size, data=crew_data))
+msummary(lm(productivity~crew_size + crew_size_plus_noise1, data=crew_data))
+msummary(lm(productivity~crew_size + crew_size_plus_noise2, data=crew_data))
+```
+
+
+---
+
+##### Consider the effects of multicollinearity on Extra Sums of Squares
+
+```{r}
+anova(lm(productivity~crew_size + crew_size_plus_noise1, data=crew_data))
+anova(lm(productivity~crew_size_plus_noise1 + crew_size, data=crew_data))
+```
+
+---
+
+##### Consider the effects of multicollinearity on Simultaneous Tests of $\beta_k$:
+
+```{r}
+Anova(lm(productivity~crew_size + crew_size_plus_noise1, data=crew_data))
+
+anova(lm(productivity~1, data=crew_data), lm(productivity~crew_size + crew_size_plus_noise1, data=crew_data))
+```
+
+---
+
+##### Consider the effects of multicollinearity on Fitted Values and Predictions:
+.pull-left[
+```{r}
+predict(lm(productivity~crew_size, data=crew_data), interval="prediction")
+```
+]
+
+.pull-right[
+```{r}
+predict(lm(productivity~crew_size + crew_size_plus_noise1, data=crew_data), interval="prediction")
+```
+]
+---
+layout: false
+
+### Need for More Powerful Diagnostics for Multicollinearity
+
+As we have seen, multicollinearity among the predictor variables can have important consequences for interpreting and using a fitted regression model. 
+
+The diagnostic tool considered here for identifying multicollinearity - namely, the pairwise coefficients of simple correlation between the predictor variables - is frequently helpful. 
+
+Often, however, serious multicollinearity exists without being disclosed by the pairwise correlation coefficients. 
+
+In Chapter 10, we present a more powerful tool for identifying the existence of serious multicollinearity. Some remedial measures for lessening the effects of multicollinearity will be considered in Chapter 11.
+
+
+
+---
+layout: true
+class: inverse
+
+---
+
+```{r, echo=TRUE}
+## Use all data from now on. 
+spending_subset=spending_subset_all[1:500,]
+spending_subset %>% datatable()
+```
+
+---
+
+ 
+```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
+clothing_model = lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure+ miscellaneous_expenditure, data=spending_subset)
+msummary(clothing_model)
+```
+
+---
+```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
+anova(clothing_model)
+```
+
+
+---
+
+We can examine the correlation among our continuous predictor variables by producing a scatterplot and correlation matrix:
+```{r, clothing_model_corr, message=FALSE, include=TRUE}
+cor.data <- with(spending_subset, data.frame(income, food=food_expenditure, rec=recreation_expenditure, misc=miscellaneous_expenditure))
+
+plot(cor.data)
+```
+---
+
+```{r, message=FALSE}
+cor(cor.data)
+```
+
+
+<!-- partial.R2(lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure, data=spending_subset), lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure+ miscellaneous_expenditure, data=spending_subset)) -->
+
+---
+
+* **Comment on whether there appears to be multicollinearity in this model and what effect that would have in this setting if it were present.**
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
+<!-- warm up question 7) 4 -->
+
+* Multicollinearity does exist because the predictor variables are correlated among themselves. If they were uncorrelated, the model would give them the same effects regardless of the other predictor variables. We see that, in the above tables, the values for miscellaneous expenditure vary depending on its ordering.
+
+* According to the correlation matrix, we see that there is correlation between the X variables, but the correlation in very low ( < 0.3). So, there is very little multicollinearity in this model. Since the multicollinearity is low, we are still able to make inferences on clothing expenditure, and we can get more precise estimates for Bi than if the multicollinearity was high. Also, the slope of an Xi will change as more predictor variables are introduced into the model, and it will change according the the X variables already present in the model. As a result, the s{bi} will change depending on the variables in the model and the variables introduced into the model. Also, multicollinearity will affect the extra sums if squares, where SSR(Xi) will be different than SSR(Xi given other variables are in the model). Lastly, the fitted values will change with every X introduced into the model, to decrease the variability between Y and the fitted values.
+
+
+---
+
+* **Comment on whether there appears to be multicollinearity in this model and what effect that would have in this setting if it were present.**
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
+<!-- warm up question 7) 4 -->
+
+* No I do not think there is multicollinearity present in this model. If it was present then there would be correlation between supposedly INDEPENDENT variables in the data set.
+
+* Multicollinearity would cause regression coefficients and extra sum of squares to change drastically with how variables are placed in a sequence.
+
+* there certainly appears to be multicollinearity, although it is not very strong between Y and SOME of the independent variables, it is definetly still present.
+
+* There is no multicollinearity for we didn't allow any interaction between the factors.
+---
+layout: false
+
+
+### Recap: Sections 7.4, 7.6
+
+After Sections 7.4 and 7.6, you should be able to 
+
+- Compute and interpret coefficients of partial determination
+- Understand multicollinearity and its effects
