@@ -1,0 +1,283 @@
+---
+title: 'Recap: Chapter 1-5'
+subtitle: 'STAT 3240'
+author: "Michael McIsaac"
+institute: "UPEI"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    css: xaringan-themer.css # xaringan-themer-print.css
+    #self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      navigation:
+        scroll: false # disable slide transitions by scrolling
+---
+
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+duo_accent(primary_color = "#006747", secondary_color = "#CFC493",   
+	header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Droid Mono"))
+```
+
+
+
+```{r setup, include=FALSE}
+library(here)
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(mosaic)
+library(DT)
+library(car)
+library(knitr)
+library(kableExtra)
+
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.retina = 3, warning = FALSE, message = FALSE, fig.align="center", fig.height=5.5)
+options(DT.options = list(scrollX = TRUE, pageLength=200, scrollY = 200, autoHideNavigation=TRUE))
+
+
+
+#params
+spending_subset_all = read.csv(here("data", "spending_subset.csv"))
+
+spending_subset=spending_subset_all[1:30,]
+
+par(lwd=3,cex=1.5) 
+cdi = as_tibble(read.delim(here("data", "CDI.txt"), sep=" ", header=FALSE)[,-c(1:2)] %>% mutate(V18 = recode_factor(V18, "NE", "NC", "S", "W")))
+names(cdi) = c("county", "state", "land_area", "population", "pop_18_to_34", "pop_65", "number_physicians", "number_hospital_beds", "total_serious_crimes", "high_school_grads", "bachelor_degrees", "poverty_rate", "unemployment_rate", "per_capita_income", "total_personal_income", "region")
+
+tab_model <- function(...,  show.ci=.95){sjPlot::tab_model(...,  show.ci=show.ci, show.se=TRUE, collapse.ci=TRUE, show.stat=TRUE)}
+```
+
+### Learning Objectives for Chapter 1
+
+* Describe the uses of regression analysis
+
+* Contrast regression vs causation
+* Identify observational and experimental data and contrast these with respect to causation
+
+* Label and interpret the components of a regression model	
+*	Apply the method of least squares	
+* Define point estimates of mean response and residuals
+
+* Define the normal error regression model
+*	Define and interpret SSE and MSE
+
+* Apply the method of maximum likelihood
+
+---
+
+### Learning Objectives for Chapter 2
+
+* Compute and interpret **confidence intervals for $E[Y]$**
+
+* Compute and interpret **prediction intervals** for a new observation
+* Compute and interpret **confidence bands** for a regression line
+
+* Construct and interpret an ANOVA table 
+* Conduct and interpret an ANOVA F test
+
+* Describe the general linear test approach
+* Calculate and interpret $R^2$
+
+* Understand the limitations of $R^2$
+* Describe the limitations of linear regression analysis	
+
+* Contrast regression and correlation
+* Conduct and interpret inference on correlation coefficients
+
+* Estimate, interpret, test, and contrast Spearman rank correlation.
+
+---
+
+### Learning Objectives for Chapter 3
+
+- Distinguish between residual, studentized residuals, and error term
+- Identify outlying $X$ values that could influence the regression function	
+- Use residual plots to conduct regression diagnostics
+
+-	Understand that their are formal tests for residual diagnostics	
+- Apply formal tests for normality and constant variance
+- Carry out and interpret the F test for lack of fit. 
+
+-	Understand the utility of transformations and when they could be applied.
+- Assess the shape of the regression function using smoothed curves. 
+
+
+---
+
+### Learning Objectives for Chapter 4
+
+- Compute and interpret Bonferroni and Working-Hotelling simultaneous CIs
+- Compute and interpret simultaneous prediction intervals
+
+- Understand the potential impact of measurement error
+- Understand the challenges of choosing X levels when designing an experiment
+
+
+---
+
+### Learning Objectives for Chapter 5
+
+- Write simple linear regression in matrix terms
+- Write simple least squares estimation in matrix terms
+	
+- Write fitted values and residuals in matrix terms	
+-	Write ANOVA and regression inferences in matrix terms
+
+---
+
+### Copier maintenance (CH01PR20.txt)
+
+The Tri-City Office Equipment Corporation sells an imported copier on a franchise basis and performs preventive maintenance and repair service on this copier. The data below have been collected from 45 recent calls on users to perform routine preventive maintenance service; for each call, $X$ is the number of copiers serviced and $Y$ is the total number of minutes spent by the service person. Assume that first-order regression model (1.1) is appropriate.
+
+```{r, echo=FALSE}
+copier_data = as_tibble(read.delim(here("data", "copier.txt"), sep="\t", header=FALSE, row.names=NULL))
+names(copier_data) = c("minutes", "copiers", "machine_age", "service_experience")
+copier_data %>% datatable()
+```
+
+---
+
+```{r}
+copier_model = lm(minutes~copiers, data=copier_data)
+msummary(copier_model)
+anova(copier_model)
+confint(copier_model)
+```
+
+---
+
+```{r}
+xyplot(minutes~copiers, data=copier_data, type=c("p", "r"))
+```
+
+---
+
+```{r}
+predict(copier_model, newdata=data.frame(copiers=c(4,5,6,7,8)), interval="confidence", level=.99)
+predict(copier_model, newdata=data.frame(copiers=c(4,5,6,7,8)), interval="predict", level=.99)
+```
+
+---
+
+```{r}
+mosaic::cor.test(minutes~copiers, data=copier_data, method="pearson")
+
+mosaic::cor.test(minutes~copiers, data=copier_data, method="spearman", exact=FALSE)
+```
+
+---
+```{r}
+copier_model_reduced = lm(minutes~1, data=copier_data)
+anova(copier_model_reduced, copier_model)
+```
+
+---
+
+```{r}
+copier_model_full = lm(minutes~factor(copiers), data=copier_data)
+anova(copier_model, copier_model_full)
+
+alr3::pureErrorAnova(lm(minutes~copiers, data=copier_data))
+```
+
+---
+
+.pull-left[
+```{r, fig.height=4}
+xyplot(resid(copier_model)~predict(copier_model), ylab="Residuals", xlab="Predicted Values", type=c("p", "smooth"))
+xyplot(abs(resid(copier_model))~predict(copier_model), ylab="Absolute Residuals", xlab="Predicted Values", type=c("p", "smooth"))
+```
+]
+
+.pull-right[
+```{r, fig.height=4}
+xyplot(resid(copier_model)~copier_data$machine_age, ylab="Residuals", xlab = "Mean Age of Machines Serviced", type=c("p", "smooth"))
+xyplot(resid(copier_model)~copier_data$service_experience, ylab="Residuals", xlab="Years of Service Experience", type=c("p", "smooth"))
+```
+]
+
+---
+
+.pull-left[
+```{r, fig.height=4}
+boxplot(resid(copier_model), ylab="Residuals", horizontal=TRUE)
+MASS::boxcox(copier_model, seq(-5, 5, 1/10))
+```
+]
+
+.pull-right[
+```{r, fig.height=4, results="hide"}
+qqPlot(resid(copier_model), ylab="Residuals")
+xyplot(I(predict(copier_model) - mean(copier_data$minutes)) ~copier_data$copiers, ylab="Yhat - Ybar", xlab="Number of Copiers",  type=c("p", "smooth"))
+```
+]
+
+---
+
+```{r}
+xyplot(minutes~copiers, data=copier_data, type=c("p", "r", "smooth"))
+```
+
+---
+
+* Test $H_0: \gamma_1 = 0 \quad$ in $\qquad \ln \sigma_i^2 = \gamma_0 + \gamma_1 X_i$
+
+```{r}
+lmtest::bptest(copier_model)
+```
+
+---
+
+Consider the following data
+
+
+| X: | 1 | 2 | 3 | 4 | 
+|:---|---|---|---|---|
+| Y: | 1 | 2 | 3 | 5 | 
+
+Use appropriate matrix algebra to conduct simple linear regression by hand by completing the following tasks: 
+
+* Write down the design matrix $X$
+* Calculate $X'X$
+* Calculate $(X'X)^{-1}$
+* Calculate $X'Y$
+* Calculate $b=(X'X)^{-1} X'Y$
+* Find $\hat Y$
+* Find $e = Y-\hat Y$
+* Find $SSE = e'e$
+* Find $SSTO$ and $SSR$
+* Find $MSE$ and $MSR$
+* Complete the corresponding ANOVA table
+* Find $R^2$
+
+Interpret each of the above quantities. 
+
+---
+
+Now, suppose that we want to conduct regression through the origin. That is, suppose that instead of estimating $\beta_0$ and $\beta_1$ in the model $Y=\beta_0 + \beta_1 X + \varepsilon$, we assume that we know that $\beta_0=0$ and we fit the model $Y=\beta_1 X + \varepsilon$. Use appropriate matrix algebra to conduct this linear regression by hand by completing the following tasks: 
+
+* Write down the design matrix $X$
+* Calculate $X'X$
+* Calculate $(X'X)^{-1}$
+* Calculate $X'Y$
+* Calculate $b=(X'X)^{-1} X'Y$
+* Find $\hat Y$
+* Find $e = Y-\hat Y$
+* Find $SSE = e'e$
+* Find $SSTO$ and $SSR$
+* Find $R^2$
+
+Interpret each of the above quantities and contrast the two regression models. 

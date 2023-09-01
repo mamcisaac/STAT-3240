@@ -1,0 +1,157 @@
+---
+title: 'Recap: Chapter 6-8'
+subtitle: 'STAT 3240'
+author: "Michael McIsaac"
+institute: "UPEI"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    css: xaringan-themer.css # xaringan-themer-print.css
+    # self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      navigation:
+        scroll: false # disable slide transitions by scrolling
+---
+
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+duo_accent(primary_color = "#006747", secondary_color = "#CFC493",   
+	header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Droid Mono"))
+```
+
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.retina = 3, warning = FALSE, message = FALSE, fig.align="center", fig.height=5.5)
+options(DT.options = list(scrollX = TRUE, pageLength=20, scrollY = 250))
+options(digits = 4)
+options(show.signif.stars=FALSE)
+
+library(here)
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(mosaic)
+library(DT)
+library(car)
+library(psych)
+
+#params
+spending_subset_all = read.csv(here("data", "spending_subset.csv"))
+
+spending_subset=spending_subset_all[1:500,]
+
+par(lwd=3,cex=1.5) 
+cdi = as_tibble(read.delim(here("data", "CDI.txt"), sep=" ", header=FALSE)[,-c(1:2)] %>% mutate(V18 = recode_factor(V18, "NE", "NC", "S", "W")))
+names(cdi) = c("county", "state", "land_area", "population", "pop_18_to_34", "pop_65", "number_physicians", "number_hospital_beds", "total_serious_crimes", "high_school_grads", "bachelor_degrees", "poverty_rate", "unemployment_rate", "per_capita_income", "total_personal_income", "region")
+
+tab_model <- function(...,  show.ci=.95){sjPlot::tab_model(...,  show.ci=show.ci, show.se=TRUE, collapse.ci=TRUE, show.stat=TRUE)}
+```
+
+
+### Learning Objectives for Chapter 6
+You should be able to 
+
+- Understand the concept and utility of multiple linear regression
+- Interpret general linear regression coefficients
+- Be aware of qualitative predictors, polynomial regression, and interactions
+
+- Express model, estimation, fitted values, residuals, and ANOVA in matrix form
+- Conduct and interpret a general linear regression ANOVA F test
+- Calculate and interpret multiple $R^2$ and $r$
+- Conduct and interpret inference and joint inference	on specific parameters
+
+- Compute and interpret independent and simultatneous CIs for $E[Y_h]$ and PIs for new observations
+- Apply regression diagnostics to the multiple regression setting. 
+
+---
+
+### Learning Objectives for Chapter 7
+You should be able to 
+
+- Understand the concept of the extra sums of squares principle
+- Conduct and interpret tests concerning regression coefficients using ESS principle 
+
+- Compute and interpret coefficients of partial determination
+- Understand multicollinearity and its effects
+
+---
+
+### Learning Objectives for Chapter 8
+You should be able to 
+
+- Understand the utility and disadvantages of polynomial regression
+- Understand the need for centering
+- Understand the danger of overfitting
+- Compute and interpret parameters in a polynomial regression model
+- Understand the utility and disadvantages of interactions in regression
+- Compute and interpret parameters in regression models with interactions
+- Compute and interpret parameters in curvilinear regression models with interactions
+
+- Implement and interpret regression using indicator (dummy) variables 
+
+- Implement and interpret regression involving interactions between indicator and quantitative variables
+- Implement and interpret regression involving interactions between multiple indicator variables
+- Implement and interpret tests for differences among regression functions
+
+---
+
+### Test 2: Chapter 6-8 example
+
+```{r}
+spending_subset = spending_subset %>% select(income, sex, food_expenditure, clothing_expenditure)
+clothing_model = lm(clothing_expenditure~income+sex+food_expenditure, data=spending_subset)
+msummary(clothing_model)
+```
+
+---
+
+```{r}
+anova(clothing_model)
+```
+
+```{r}
+round(confint(clothing_model, level=.95), 4)
+```
+
+---
+
+```{r, echo=FALSE, fig.height=9, fig.width=9}
+spending_subset$fitted_values = predict(clothing_model)
+spending_subset$residuals = MASS::studres(clothing_model)
+
+
+pairs.panels(spending_subset, 
+             method = "pearson", # correlation method
+             hist.col = "#00AFBB",
+             density = TRUE,  # show density plots
+             ellipses = FALSE # show correlation ellipses
+             )
+
+
+```
+
+---
+
+```{r}
+msummary(lm(clothing_expenditure~sex, data=spending_subset))
+anova(lm(clothing_expenditure~sex, data=spending_subset))
+```
+
+---
+
+```{r}
+msummary(lm(clothing_expenditure~sex+(income + I(income^2))*sex, data=spending_subset))
+anova(lm(clothing_expenditure~sex+(income + I(income^2))*sex, data=spending_subset))
+```
