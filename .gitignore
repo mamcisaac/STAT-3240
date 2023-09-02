@@ -3,6 +3,9 @@
 .RData
 .Ruserdata
 .DS_Store
+data/.DS_Store
+src/.DS_Store
+src/img/.DS_Store
 src/*_files
 src/*_cache
 src/libs
