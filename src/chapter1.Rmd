@@ -773,7 +773,6 @@ class: inverse
 ```{r , echo = TRUE, fig.height=3}
 mod_physician_beds = lm(number_physicians ~ number_hospital_beds, data=cdi)
 xyplot(number_physicians ~ number_hospital_beds, data=cdi,  type=c("p", "r"))
-mod_physician_beds$coef
 
 tibble(X1=cdi$number_hospital_beds, Y = cdi$number_physicians, Yhat1 = predict(mod_physician_beds), e1 = residuals(mod_physician_beds)) %>% round(5) %>% datatable(options=list(scrollY=50))
 ```
@@ -785,7 +784,6 @@ class: inverse
 ```{r , echo = TRUE, fig.height=3}
 mod_physician_pop = lm(number_physicians ~ population, data=cdi)
 xyplot(number_physicians ~ population, data=cdi,  type=c("p", "r"))
-mod_physician_pop$coef
 
 tibble(X2=cdi$population, Y = cdi$number_physicians, Yhat2 = predict(mod_physician_pop), e2 = residuals(mod_physician_pop))%>% round(5) %>% datatable(options=list(scrollY=50))
 ```
@@ -797,7 +795,6 @@ class: inverse
 ```{r , echo = TRUE, fig.height=3}
 mod_physician_income = lm(number_physicians ~ total_personal_income, data=cdi)
 xyplot(number_physicians ~ total_personal_income, data=cdi,  type=c("p", "r"))
-mod_physician_income$coef
 
 tibble(X3=cdi$total_personal_income, Y = cdi$number_physicians, Yhat3 = predict(mod_physician_income), e3 = residuals(mod_physician_income)) %>% round(5) %>% datatable(options=list(scrollY=50))
 ```
