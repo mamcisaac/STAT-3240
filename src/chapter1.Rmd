@@ -56,6 +56,40 @@ tab_model <- function(...,  show.ci=.95){sjPlot::tab_model(...,  show.ci=show.ci
 
 
 
+class: inverse
+
+
+**Why are you being required to complete pre-lecture readings and Warm Up exercises for STAT 3240?**
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE: -->
+<!-- warm up introduction 2 -->
+
+* To make sure I am prepared for a deeper discussion in class and so that we do not waste class time discussing things that can be learned at home.
+
+* I understand that being active in my learning is the key to doing well in any courses. Being active in learning means I need to read the materials prior to going to the class. Professors will address any questions that I don't understand or misunderstand in the class.
+
+* It helps us make use of our class time, instead of going through what we already have access to in the textbook, we would get better understanding of what we have read before the class.
+
+
+---
+class: inverse
+
+
+**What single point of the assigned reading did you find most difficult or confusing. If you did not find any part of it difficult or confusing, tell me what parts you found most interesting.**
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE: -->
+<!-- warm up introduction 3 -->
+
+
+* I like the format of this course. It seems like it will be very engaging and fun. I'm looking forward to it.
+
+* I enjoy "discussion" classes because I  find it easier for me to learn better, coming into the class with the knowledge of what I  have read and leaving with a better understanding; this is what I found interesting
+
+* The assigned reading was simply the course syllabus and there was nothing that was really confusing or difficult about it. I will say that the open-ended questions (such as the one I'm answering now) are new to me. Although interesting, I'm fearful of these as I'm not the best writer. Even if I have a decent idea/understanding of a question/concept it can be hard for me to put everything down properly with words.
+
+---
+
+
 ### 1: Linear Regression with One Predictor Variable
 
 Regression analysis is widely used in business, the social and behavioural sciences, the biological sciences, and many other disciplines. 
