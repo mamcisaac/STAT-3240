@@ -1294,7 +1294,7 @@ Y = c(250, 265, 259)
 mu.230=dnorm(Y, mean=230, sd=10)
 mu.259=dnorm(Y, mean=259, sd=10)
 
-data.frame(Y, mu.230, mu.259) %>% round(5) %>% datatable(options=list(scrollY=150))
+data.frame(Y, mu.230, mu.259) %>% round(5) 
 prod(mu.230)
 prod(mu.259)
 ```
@@ -1365,7 +1365,7 @@ We can maximize this with respect to the parameters $(\beta_0, \beta_1, \sigma^2
 
 --
 
-* The maximum likelihood estimator is biased, so ordinarily the unbiased estimator $MSE$ is used:
+* The maximum likelihood estimator of $$\sigma^2$$ is biased, so ordinarily the unbiased estimator $MSE$ is used:
 $$s^2 = MSE = \frac{n}{n-2} \hat \sigma^2$$
 
 
