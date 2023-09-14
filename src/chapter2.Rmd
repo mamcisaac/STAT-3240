@@ -236,23 +236,7 @@ msummary(clothing_model)
 <!-- warm up question 2a) 1 -->
 
 * We are 95% confident that for each `$`100 increase in income, people on average spend from 3 cents less to `$`6 more on clothing.
-
----
-class: inverse
-
-* **Interpret your 95% CI for $\beta_1$ in the context of this problem**
-
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2a) 1 -->
-
-* We are 95% confident that the mean of clothing expenditures increases by an amount found between -0.00000 and 0.06099 for each additional unit in income. However, we cannot speak about spending a negative amount of money, so that would be extrapolating, so it is more reasonable to not interpret the negative part of the CI.
-
-* There is a 95% chance that $\beta_1$ would fall in the interval (-0.0331, 0.06430)
-
-* If we replicated the same study multiple times with different random samples and computed a confidence interval for each sample, we would expect 95% of the confidence intervals to say that there is no significant relationship between income and clothing expenditure.
-
-* It is hard to interpret since 0 lays inside the interval.
+* The confidence interval indicates that there may not be a linear relationship between income and clothing expenditure. If there is a linear relationship, it is extremely weak.
 
 ---
 class: inverse
@@ -277,7 +261,7 @@ class: inverse
 
 ```{r CDI_mod_physician_beds, echo = TRUE}
 mod_physician_beds = lm(number_physicians ~ number_hospital_beds, data=cdi)
-summary(mod_physician_beds)
+msummary(mod_physician_beds)
 ```
 
 
@@ -297,7 +281,7 @@ class: inverse
 
 ```{r CDI_mod_physician_pop, echo = TRUE}
 mod_physician_pop = lm(number_physicians ~ population, data=cdi)
-summary(mod_physician_pop)
+msummary(mod_physician_pop)
 ```
 
 
@@ -315,7 +299,7 @@ class: inverse
 
 ```{r CDI_mod_physician_income, echo = TRUE}
 mod_physician_income = lm(number_physicians ~ total_personal_income, data=cdi)
-summary(mod_physician_income)
+msummary(mod_physician_income)
 ```
 
 
@@ -403,24 +387,8 @@ confint(clothing_model) %>% round(5)
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 2a) 2 -->
 
-* At a 95% confidence level, it can not be concluded that clothing expenditure and income are related. This is because a slope of zero is in the confidence interval, thus it is possible that the slope is zero indicating no relationship. Therefore, the null hypothesis cannot be rejected.
-* No, because we failed to reject the null hypothesis. Therefore the slope may not be effected by the relation of clothing expenditure and income.
-* Since we fail to reject the null hypothesis and ß1 = 0 , the clothing expenditure is not related to income.
-* It could be no relationship between clothing expenditure and income. Because the B1 could equal =0, 
+*  It is unlikely that clothing expenditure is related to income. Our estimate for the slope is close to zero, and the confidence interval contains both negative and positive values. If there is a relationship, it would be extremely weak.
 
----
-class: inverse
-
-* **Is clothing expenditure related to income? Justify your answer.**
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2a) 2 -->
-
-* According to the plot I would say that they are related but since 0 is in our CI they could be unrelated. According to my other calculation they seem to be positively related.
-
-* Yes, clothing expenditure is related to income because according to the graph displayed above the higher your income the more the is spent on clothing.
-
-* Yes it is, the R-squared can show the trend.
 
 
 ---
@@ -506,41 +474,7 @@ class: inverse
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 2a) 3 -->
 
-* Power is the probability of avoiding a type 2 error when conducting a test. (Type 2 error is when the null hypothesis should be rejected, but we do not reject it). So, it is the probability that we reject the null hypothesis and reach to the conclusion of the alternate hypothesis, when the null hypothesis was indeed false and the alternate hypothesis truly holds. 
-
-* power refers to the ability to reject a null hypothesis when it is false. That is, we make the correct decision in rejecting the null hypothesis. This test uses a high sample size (using data from across Canada). 
-
-
----
-class: inverse 
-
-* **Explain in your own words the concept of power. Do you believe that we have a lot of power in this setting?**
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2a) 3 -->
-
-* Power is the probability that a false null hypothesis will be rejected. Since alpha (the probability of rejecting a true null hypothesis) is low (0.05) power is also low. This is because when everything else is kept constant, as alpha increases so does power. This is because a larger alpha increases the chances of rejecting a true null hypothesis and thus a false null hypothesis.
-
-* Power is a quantity that measures how well the test's ability in detecting a false null hypothesis is. I don't think we have a lot of power in this setting for the sample size is relatively small (n =30).
-
-* Yes, I think that we have a lot of power because B1 is not equal to 0.
-
----
-class: inverse 
-
-* **Explain in your own words the concept of power. Do you believe that we have a lot of power in this setting?**
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2a) 3 -->
-
-* The power shows how high probability there is to make a correct conclusion, e.g. reject the null hypothesis when it is false. I would say that our test does not have a lot of power since we can not come to a conclusion whether to reject or fail to reject the null hypothesis.
-
-* Power is the probability of rejecting the null hypothesis
-
-* There is no power in this setting because we failed to reject the null hypothesis.
-
-* power is the likelihood that the conclusion drawn from an analysis reflects the truth
-
+* power is the ability we can reject the null hypothesis given the alternative hypothesis is true. The sample size is not big enough so there is not a lot of power
 
 
 ```{r, include=FALSE}
@@ -657,31 +591,12 @@ ci
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 2a) 4 -->
 
-* We are 90% confident that the mean clothing expenditure, when 60000 Canadian Dollars is the income, is somewhere between 2204.00784 and 3582.944245 Canadian Dollars for clothing expenditure.
-
-* I have 90% of confidence to say that the mean expenditure on clothing of the Canadians at the income level of 60000 fall in the interval (2704.00784,3582.944245).
-
----
-class: inverse
-
-* **In your own words, interpret what the given 90% confidence interval for $E[Y_h]$ corresponding to $X_h = 60000$ actually means in the context of the problem.**
-
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2a) 4 -->
-
-* For someone that earns 60000 dollars we can expect, with 90% certainty, them to spend somewhere between 2204 and 3583 on clothes.
-* We are 90% confident that a person that makes `$`60000 in income spends between `$`2204 and `$`3583.
-
-* That when the income of a home is at 60000 they spend at least 2204.00784 and at most 3582.944245.
-
-* 90% of the time, we would expect to see the average person making `$`60 000/year spend between `$`2900 and `$`3600 annually on clothing.
+* It means that we are 90% confident that the average clothing expenditure for households earning 60000, lies between 2204.00784 and 3582.944245 on a yearly basis
 
 ---
 class: inverse
 
 ### SHS: Pointwise Confidence Intervals for $\hat{Y}_h$
-
 
 ```{r, clothing_model_cis, echo=TRUE, fig.height=4}
 plot(spending_subset$income, spending_subset$clothing_expenditure, xlab="income", ylab="clothing expenditure")
@@ -977,24 +892,6 @@ class: inverse
 <!-- warm up question 2a) 5 -->
 
 * The CI, previously mentioned, represents an inference on the mean clothing expenditure, when 6000 Canadian Dollars is the income... However, the corresponding prediction interval is a statement about what the value of the clothing expenditure would be in the next survey taken, if 6000 where the income. 
-
-* Prediction intervals must account for both the uncertainty in knowing the value of the population mean, plus data scatter, so it would always be wider. A prediction interval of Y of level X = 6000 says that the next time we pick somebody whose income is 6000, his/her clothing expenditure with most likely be within the prediction interval.
-
-* The 90% prediction interval would be wider than the 90% confidence interval... In this case the prediction interval is (1605.15465,4181.79744). This indicates that there is a 90% chance that someone that makes `$`60000 a year is going to spend between `$`1605.15465 and `$`4181.79744 on clothes in a year.
-
----
-class: inverse
-
-* **How would the corresponding prediction interval compare to the confidence interval discussed previously at the point $X_h = 60000$? In your own words, interpret this prediction interval in the context of this problem.**
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2a) 5 -->
-
-*  prediction interval will have a wider range compare to confidence interval. prediction interval is to predict the interval of the mean of expenditure of Canadians at the income level of 6000.
-
-* This prediction interval would create an upper and lower bound on the E[Y_h]. 
-
-* Sorry, but for the model to work doesn't B1 has to be 0.30496 instead of 0.030496 or have I misunderstood something? ...  I expected the prediction interval to be much more narrow than the CI.
 
 
 ---
