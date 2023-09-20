@@ -1266,8 +1266,20 @@ for(point in 1:n){
 
 ```
 
+---
+
+
+$$\begin{align*}
+\sum(Y_i - \bar Y)^2 & = \color{blue}{\sum(\hat Y_i - \bar Y)^2} + \color{red}{\sum(Y_i - \hat Y_i)^2} \\
+\text{total sum of squares} & = \color{blue}{\text{regression sum of squares}} + \color{red}{\text{error sum of squares}} \\
+SSTO & = \color{blue}{SSR} + \color{red}{SSE} \\
+\end{align*}$$
+
+
 * Note that $SSR$ is thus a measure of how far $\beta_1$ is from 0. 
+
 * However, whether a specific $SSR$ is "big" or "small" depends on the setting; we need to consider the relative size of $SSR$ to $SSE$ in order to determine whether $\beta_1$ appears to be significantly different from 0. 
+
 * Note also that $\frac{SSR}{SSTO}$ is a measure of how much of the variability in $Y$ is explained by the linear model.
 
 
@@ -1458,46 +1470,6 @@ anova(clothing_model)
 
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 2b) 1 -->
-
-
----
-
-
-* **In your own words, interpret the p-value from the ANOVA table in the context of this problem.**
-
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2b) 1 -->
-
-* The p-value is the probability of obtaining a result at least this extreme, assuming that the null hypothesis is true.
-
-* The small p-value allows us to reject the null hypothesis that there is no relation between clothing expenditure and income (b1 =0)
-
-* The p-value is 4.174e-07 . Therefore, at a significance level of 0.01 the null hypothesis (income and amount spent on clothes are not related) can be rejected and it can be concluded that income and amount spent on clothing are related in a statistically significant way.
-
-* we have to reject the null hypothesis and conclude that B1 is different than 0. Thus, there is a linear relationship between mean clothing expenditures and income.
-
-
-
-
----
-
-
-* **In your own words, interpret the p-value from the ANOVA table in the context of this problem.**
-
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2b) 1 -->
-
-* With such a small p-value it means we fail to reject the null hypothesis, meaning that the variances of clothes expenditure and income are not effected by each other.
-
-* p value is the probability for the b1 of the sample to be true given that the beta1 = 0 is true. It is the probability for income and expenditure to have linear association. if the p value is too small, then there is no linear association between income and expenditure.
-
-*  P value shows that there is a very low probability to get the results we assumed in our null hypothesis, therefore showing there isn't a strong relationship between income and clothing expenditure
- 
-
-* The p-value shows the probability that our null hypothesis is true, which would be that there is no relationship between income and how much they spend on clothing. The p-value is a very small number in this case, hence there is a very low probability that there is no relationship between income and clothing expenditures.
-* At 0.0000004174 we reject the null hypothesis as the probability of a Type 2 error is so low.
 
 
 ---
@@ -1788,7 +1760,7 @@ anova(clothing_model)
 
 
 * In the general linear test approach we know that SSE(R) is greater or equal to SSE(F). If they are equal or close to it, we know that the addition of the parameters in full models do not significantly reduce the variations around the fitted regression model. In this example and with the value of the CD at 0.05(approx), we can conclude that the predictor variable is not a significant factor in reducing the total variation.
-* In the General linear test approach we compare the SSE and the SSTO, if those values are relatively close to each other it is more likely that the null hypothesis holds. In our test there is not so big difference between those numbers.which would indicate that our null hypothesis may hold.
+* In the General linear test approach we compare the SSE and the SSTO, if those values are relatively close to each other it is more likely that the null hypothesis holds. In our test there is not so big difference between those numbers, which would indicate that our null hypothesis may hold.
 ---
 class: inverse
 
