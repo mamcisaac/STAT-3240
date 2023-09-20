@@ -1741,35 +1741,6 @@ anova(clothing_model)
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 2b) 2 -->
 
-* There is a large difference between SSE(R) and SSE(F) suggests that Ha holds. Therefore, B1 isn't zero, there is a relationship between the income of working Canadians and the amount that they spend on clothing in a year.
-
----
-class: inverse
-
-
-```{r,  echo = TRUE}
-clothing_model = lm(clothing_expenditure~income, data=spending_subset)
-anova(clothing_model)
-```
-
-* **In your own words, briefly describe what the “General linear test approach” could accomplish in this setting.**
-
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2b) 2 -->
-
-
-* In the general linear test approach we know that SSE(R) is greater or equal to SSE(F). If they are equal or close to it, we know that the addition of the parameters in full models do not significantly reduce the variations around the fitted regression model. In this example and with the value of the CD at 0.05(approx), we can conclude that the predictor variable is not a significant factor in reducing the total variation.
-* In the General linear test approach we compare the SSE and the SSTO, if those values are relatively close to each other it is more likely that the null hypothesis holds. In our test there is not so big difference between those numbers, which would indicate that our null hypothesis may hold.
----
-class: inverse
-
-```{r,  echo = TRUE}
-clothing_model_reduced = lm(clothing_expenditure~1, data=spending_subset)
-anova(clothing_model_reduced, clothing_model)
-```
-
-
 
 ---
 class: inverse
@@ -1900,26 +1871,6 @@ msummary(clothing_model)
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 2b) 3 -->
 
-* The variation in clothing expenditure is reduced by 5.018% when income is considered.
-
-* The variation in clothing expenditures is reduced by 5.018% when income is considered. Also, the coefficient of determination (0.05018) is not very close to 1, so the degree of linear association between income and clothing expenditures is not very large, meaning the points are not too close to the fitted regression line.
-
-* The coefficient of determination is the ratio between the sum of squares regression and the total sum of squares. In this case, it was equal to 0.94982. This means that approximately 94.982% of the variation in Y can be explained by variation in X.
-
-
----
-
-
-* **In your own words, interpret the coefficient of determination in this setting.**
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2b) 3 -->
-
-* because the coefficient of determination is very close to zero, there is a lot of variation found in clothing-expenditure
-
-* The coefficient of determination value in this setting of 0.05018 tells us that around 5% of clothing expenditures are predictable.
-
-* Since our Coefficient of determination is very close to zero, we know that there is a lot of variation in the y-values.
 ---
 
 ### CDI: $R^2$ - physicians vs hospital beds
@@ -2426,6 +2377,8 @@ The Pearson Correlation is
 cor.test(Y1, Y2, method="pearson"); 
 ```
 
+---
+
 The Pearson Correlation of the ranks is 
 
 ```{r,  echo=TRUE}
@@ -2536,47 +2489,31 @@ xyplot(clothing_expenditure~income, data=spending_subset,  type=c("p", "r", "smo
 
 ---
 
-.small[
 ```{r,  echo = TRUE}
 mosaic::cor.test(clothing_expenditure~income, data=spending_subset, method="pearson")
 ```
 
+---
+
 ```{r,  echo = TRUE}
 mosaic::cor.test(clothing_expenditure~income, data=spending_subset, method="spearman")
 ```
-]
-
----
-
-* **Explain how and why the Spearman rank correlation coefficient differs from the Pearson correlation coefficient in this setting.**
-
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2b) 4-->
-
-*  The Spearman rank correlation is larger than the Pearson correlation coefficient because one variable increases when the other increases, but not at a consistent amount.
-
-* what I know about Pearson correlation is it evaluates linear relationships between 2 continuous variables. while spearman rank correlation evaluates the monotonic relationship between two continuous or ordinal variables.
-
-* The Spearman correlation is just the Pearson correlation using the order statistics instead of the actual numeric values, thus Pearson correlation coefficient implies linear trend, and Spearman's shows monotonic trend. In the plot above, the curve is a better fit for our data, hence the smaller Pearson correlation coefficient.
-
----
-
-* **Explain how and why the Spearman rank correlation coefficient differs from the Pearson correlation coefficient in this setting.**
-
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 2b) 4-->
-
-* the Spearman rank correlation coefficient [is] larger **and more precise** than the Pearson correlation coefficient in this setting... 
 
 --
 
-```{r,  include=TRUE}
-mosaic::cor.test(clothing_expenditure~income, data=spending_subset, method="spearman")
 
+```{r,  include=TRUE}
 DescTools::SpearmanRho(spending_subset$income, spending_subset$clothing_expenditure, conf.level=.95)
 ```
+
+---
+
+* **Explain how and why the Spearman rank correlation coefficient differs from the Pearson correlation coefficient in this setting.**
+
+
+<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
+<!-- warm up question 2b) 4-->
+
 
 
 ---
