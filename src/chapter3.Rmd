@@ -44,6 +44,7 @@ library(DT)
 library(car)
 library(Hmisc)
 library(rms)
+library(alr3)
 
 #params
 spending_subset_all = read.csv(here("data", "spending_subset.csv"))
@@ -356,9 +357,6 @@ xyplot(resid(clothing_model)~predict(clothing_model), ylab="Residuals", xlab="Pr
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 1 (answers related to linearity) -->
 
-* Since the residual plots do not conform to a straight line and...  you can say this should not be a linear model.
-
-* For residuals plotted against X or Y, an appropriate linear regression model should have the residuals fall within a horizontal band centered at zero displaying no systematic tendencies to be positive or negative, this would indicate linearity... The second residual plot (residuals and income) is a curve centered around zero. The residuals have a systematic tendency to vary between positive and negative, this plot indicates the linear regression is not appropriate and a curvilinear regression model would be more appropriate. The plot for residuals and food expenditure also does not have the residuals fall within a horizontal band centered at zero displaying no systematic tendencies to be positive or negative, therefore this also indicates the regression is not appropriate due to a lack of linearity in the relationship. 
 
 
 ---
@@ -367,7 +365,6 @@ xyplot(resid(clothing_model)~predict(clothing_model), ylab="Residuals", xlab="Pr
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 1 (answers related to linearity) -->
 
-* the residual against the predictor variable income and the fitted value seemed similar
 
 .pull-left[
 ```{r, fig.height=5, fig.cap=""}
@@ -388,7 +385,6 @@ xyplot(resid(clothing_model)~spending_subset$income, ylab="Residuals", xlab="Inc
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 1 (answers related to linearity) -->
 
-* The first residual plot (residuals and clothing expenditure) shows the residuals centered around a line with a steep slope, this indicates the relationship is not linear and therefore, model is not appropriate. 
 
 
 .pull-left[
@@ -450,9 +446,6 @@ xyplot(abs(resid(clothing_model))~predict(clothing_model), ylab="Absolute Residu
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 1 (answers related to homogeneity of variance) -->
 
-* For an appropriate regression model, a plot of residuals and predicted values should fall in a straight horizontal line indicating constant error variance. This is not the case for this model, therefore the relationship has nonconstant error variance, therefore model is not appropriate. 
-
-* the variability of error is large when the predictor variable income is small and large. the variability is smaller when the income is in the middle of the horizontal axis. we can tell it clearly when we look at it on absolute residual plot, but it indicating pretty much the similar thing that when income is small, income is large the variability of error is large
 
 ---
 
@@ -461,11 +454,6 @@ xyplot(abs(resid(clothing_model))~predict(clothing_model), ylab="Absolute Residu
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 1 (answers related to homogeneity of variance) -->
 
-* For an appropriate model, the plot for the absolute value for the residuals and predicted value should have a cone like shape which would also indicate constant error variance. This is not the case for this model, therefore the model is not appropriate. 
-
-* The plot for residuals v.s. predicted values shows that the distribution is far from normal, because according to the smooth curve, the distribution is skewed to the left (concave down). 
-
-* The plot for the residuals v.s. X (income) shows ... that the error terms are independent , since the points are randomly scattered around the 0 line on both sides. 
 
 ---
 
@@ -514,11 +502,6 @@ A rough rule of thumb ... is to consider semistudentized residuals with absolute
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 1 (answers related to outliers) -->
 
-* from the box plot, we can see that there are several outliers in the data set
-
-* The boxplot and the plot of residuals and norm quantiles indicates there are many outliers. The large number of outliers also indicates the regression model is not appropriate. Overall, the plots indicate the regression model is not appropriate.
-
-
 
 
 
@@ -526,7 +509,7 @@ A rough rule of thumb ... is to consider semistudentized residuals with absolute
 <!-- ### physicians vs hospital beds -->
 
 ```{r, fig.height=3, fig.cap=""}
-xyplot(number_physicians ~ number_hospital_beds, data=cdi, ylab="Residuals", xlab="Predicted Values", type=c("p", "smooth"))
+xyplot(number_physicians ~ number_hospital_beds, data=cdi, type=c("p", "smooth"))
 
 
 boxplot(resid(mod_physician_beds)/summary(mod_physician_beds)$sigma, ylab="Semi-studentized Residuals", horizontal=TRUE)
@@ -598,10 +581,6 @@ boxplot(resid(clothing_model), ylab="Residuals", horizontal=TRUE)
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 1 (answers related to normality) -->
 
-* The distribution is far from normal... the box-and-whisper plot that shows the median (2nd quartile) dividing the box unequally, with it being closer to the 1st quartile, showing that the distribution is skewed to the right. 
-
-* From the box plot, we can say that the data is skew to right.  From the qq plot, data in the middle tend to be normally distributed, but not for the data at the head and the tail.
-
 ---
 
 ### physicians vs hospital beds
@@ -651,11 +630,6 @@ xyplot(resid(clothing_model)~spending_subset$food_expenditure, ylab="Residuals =
 
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 1 (answers related to omission of "food expenditure) -->
-
-* The plot for residuals and food expenditure also does not have the residuals fall within a horizontal band centered at zero displaying no systematic tendencies to be positive or negative, therefore this also indicates the regression is not appropriate due to a lack of linearity in the relationship.
-
-* the error varies a lot when the food expenditure is large. 
-
 
 ---
 ```{r, fig.height=3, fig.cap=""}
@@ -815,7 +789,7 @@ qqPlot(b1)
 ```
 ]
 
---
+---
 
 ```{r}
 confint(clothing_model)[2,]
@@ -1039,11 +1013,7 @@ Notice that the “Pure Error SS” is 351920325 and the “Lack of Fit SS” is
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 2 -->
 
-* From the first ANOVA table, the p-value is 0.0015915429, which is very small (smaller than 0.01), so we reject the null hypothesis, so there is a linear association between income and clothing expenditures. From the second ANOVA table, the p-value is 0.298283808, which is greater than alpha = 0.1, 0.05, 0.01. So, we fail to reject the null hypothesis, so we fail to disprove the appropriateness of the linear regression function.
 
-* 1- P being 0.0015915429 shows that the null hypothesis of B1=0 being true is very unlikely, showing that there is a linear relationship between income and money spent on clothing in a year. 
-
-* The p-value for the first ANOVA table is 0.0015915429. This indicates that at a significance level of 0.01 the null hypothesis can be rejected. Therefore, it can be concluded that income and clothing expenditure are related. The p-value for the second ANOVA table is 0.298283808. This indicates that at a significance level of 0.05 the null hypothesis has failed to be rejected. Therefore, there is not enough evidence at a significance level of 0.05 to conclude that there is a lack of fit in the simple linear regression model.
 ---
 
 * **Interpret the p-values from both ANOVA tables in context.**
@@ -1051,11 +1021,6 @@ Notice that the “Pure Error SS” is 351920325 and the “Lack of Fit SS” is
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 2 -->
 
-*  p value at the first ANOVA table is for the hypothesis testing of b1, as the p value is small we reject the null hypothesis and conclude that there is a relationship between income and clothing expenditure. While the p value in second ANOVA table is large, which we fail reject the null hypothesis and conclude the there is a linear relationship between 2 variables. as the f test is comparing the full model (mean value) with the reduced model (yhat = beta0 + beta1 * x) and null hypothesis is 2 variables have linear relationship.
-  
-* We have a P= 0.298283808 probability of accepting the alternate hypothesis of the B1=/=0 where there is a linear relationship between income and money spent on clothing in a year.
-
-* The first p-value(0.0015915429) indicates that we should reject the null hypotheses B1=0, hence there is no linear relationship. The second p-value(0.298283808) is pretty high which indicates that we fail to reject the null hypothesis B1=0. From this we get two different answers regarding the income and the clothing expenditures, one p-value says that there is a linear relationship whether the other tells us that there is not a linear relationship.
 
 ---
 ### CDI: Lack of Fit - physicians vs hospital beds
@@ -1588,15 +1553,6 @@ xyplot(clothing_expenditure~income, data=spending_subset,  type=c("p", "r", "smo
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 3) 3 -->
 
-.small[
-* If I look at the residual plot agains clothing expenditure the plot seems to be linear, I cannot think of any function that will fit the points better than the line we have.
-
-* A transformation on Y (clothing expenditures) is needed to fix the issue of non-normality and unequal error variances (as discussed in question 2). A Box-Cox transformation can be used to find the right transformation form. If the Y transformation linearizes the nonlinear regression relation, then no other transformation is needed. Otherwise, we will need to make another transformation on X (income).
-
-*  it depends on whether there are unequal error variance and non-normality. if yes, then transformations of Y might be a good choice, but sometimes when we also need to transformed X when we transformed Y. if only the unequal variance occurred, then transform X would be good, coz at this situation, transform Y might affect the linearity.
-
-* Since the residual plots indicate the relationship is not linear, one transformation that may result in a more appropriate model would be to use a quadratic or exponential regression model. The residual plots also indicate that the error variance is not constant, therefore another transformation that could be used is to use the method of weighted least squares to obtain the estimators of the parameters. 
-]
 
 
 

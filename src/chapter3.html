@@ -335,6 +335,68 @@ xyplot(resid(clothing_model)~predict(clothing_model), ylab="Residuals", xlab="Pr
 
 * **Evaluate the appropriateness of the regression model based on the provided residual plots.**
 
+---
+
+* **Evaluate the appropriateness of the regression model based on the provided residual plots.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 1 (answers related to linearity) --&gt;
+
+
+
+---
+* **Evaluate the appropriateness of the regression model based on the provided residual plots.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 1 (answers related to linearity) --&gt;
+
+
+.pull-left[
+
+```r
+xyplot(resid(clothing_model)~predict(clothing_model), ylab="Residuals", xlab="Predicted Values", type=c("p", "smooth"))
+```
+
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-19-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+```r
+xyplot(resid(clothing_model)~spending_subset$income, ylab="Residuals", xlab="Income", type=c("p", "smooth"))
+```
+
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-20-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+* **Evaluate the appropriateness of the regression model based on the provided residual plots.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 1 (answers related to linearity) --&gt;
+
+
+
+.pull-left[
+
+```r
+xyplot(resid(clothing_model)~spending_subset$clothing_expenditure, ylab="Residuals", xlab="Clothing Expenditure", type=c("p", "smooth"))
+```
+
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-21-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+```r
+xyplot(clothing_expenditure~income, data=spending_subset, ylab="Clothing Expenditure", xlab="Income", type=c("p", "smooth"))
+```
+
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-22-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+
 
 ---
 layout: false
@@ -368,13 +430,29 @@ class: inverse
 xyplot(resid(clothing_model)~predict(clothing_model), ylab="Residuals", xlab="Predicted Values", type=c("p", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-21-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-25-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(abs(resid(clothing_model))~predict(clothing_model), ylab="Absolute Residuals", xlab="Predicted Values", type=c("p", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-21-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-25-2.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+* **Evaluate the appropriateness of the regression model based on the provided residual plots.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 1 (answers related to homogeneity of variance) --&gt;
+
+
+---
+
+* **Evaluate the appropriateness of the regression model based on the provided residual plots.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 1 (answers related to homogeneity of variance) --&gt;
+
 
 ---
 
@@ -385,13 +463,13 @@ xyplot(abs(resid(clothing_model))~predict(clothing_model), ylab="Absolute Residu
 xyplot(resid(mod_physician_beds)~predict(mod_physician_beds), ylab="Residuals", xlab="Predicted Values", type=c("p", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-22-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-26-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(abs(resid(mod_physician_beds))~predict(mod_physician_beds), ylab="Absolute Residuals", xlab="Predicted Values", type=c("p", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-22-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-26-2.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -418,33 +496,42 @@ class: inverse
 boxplot(resid(clothing_model), ylab="Residuals", horizontal=TRUE)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-23-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-27-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 boxplot(resid(clothing_model)/summary(clothing_model)$sigma, ylab="Residuals", horizontal=TRUE)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-23-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-27-2.png" width="504" style="display: block; margin: auto;" /&gt;
 --
 
 A rough rule of thumb ... is to consider semistudentized residuals with absolute value of four or more to be outliers.
 
 ---
 
+* **Evaluate the appropriateness of the regression model based on the provided residual plots.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 1 (answers related to outliers) --&gt;
+
+
+
+
+---
 &lt;!-- ### physicians vs hospital beds --&gt;
 
 
 ```r
-xyplot(number_physicians ~ number_hospital_beds, data=cdi, ylab="Residuals", xlab="Predicted Values", type=c("p", "smooth"))
+xyplot(number_physicians ~ number_hospital_beds, data=cdi, type=c("p", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-24-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-28-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 boxplot(resid(mod_physician_beds)/summary(mod_physician_beds)$sigma, ylab="Semi-studentized Residuals", horizontal=TRUE)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-24-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-28-2.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -490,7 +577,7 @@ class: inverse
 car::qqPlot(resid(clothing_model), ylab="Residuals")
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-27-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-31-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -500,14 +587,21 @@ car::qqPlot(resid(clothing_model), ylab="Residuals")
 xyplot(resid(clothing_model)~predict(clothing_model), ylab="Residuals", xlab="Predicted Values", type=c("p", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-28-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-32-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 boxplot(resid(clothing_model), ylab="Residuals", horizontal=TRUE)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-28-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-32-2.png" width="504" style="display: block; margin: auto;" /&gt;
 
+
+---
+
+* **Evaluate the appropriateness of the regression model based on the provided residual plots.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 1 (answers related to normality) --&gt;
 
 ---
 
@@ -518,7 +612,7 @@ boxplot(resid(clothing_model), ylab="Residuals", horizontal=TRUE)
 car::qqPlot(resid(mod_physician_beds), ylab="Residuals")
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-29-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-33-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -527,13 +621,13 @@ car::qqPlot(resid(mod_physician_beds), ylab="Residuals")
 xyplot(resid(mod_physician_beds)~predict(mod_physician_beds), ylab="Residuals", xlab="Predicted Values", type=c("p", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-30-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-34-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 boxplot(resid(mod_physician_beds), ylab="Residuals", horizontal=TRUE)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-30-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-34-2.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 layout: false
@@ -561,22 +655,28 @@ clothing_model = lm(clothing_expenditure~income, data=spending_subset)
 xyplot(resid(clothing_model)~spending_subset$food_expenditure, ylab="Residuals = clothing_expenditure - (b0 + b1 income) ", xlab="Food Expenditure", type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-32-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-36-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
+* **Evaluate the appropriateness of the regression model based on the provided residual plots.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 1 (answers related to omission of "food expenditure) --&gt;
+
+---
 
 ```r
 xyplot(resid(mod_physician_beds)~cdi$population, ylab="Residuals", xlab="Population", type=c("p", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-33-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-37-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(resid(mod_physician_beds)~cdi$total_personal_income, ylab="Residuals", xlab="Total Personal Income", type=c("p", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-33-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-37-2.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -701,7 +801,7 @@ olsrr::ols_test_normality(clothing_model)
 car::qqPlot(resid(clothing_model), ylab="Residuals")
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-35-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-39-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -743,7 +843,7 @@ for (i in 1:1000)
 histogram(b1)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-38-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-42-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -752,10 +852,10 @@ histogram(b1)
 qqPlot(b1)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-39-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-43-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
---
+---
 
 
 ```r
@@ -1014,7 +1114,7 @@ anova(bank_model, bank_model_full)
 plot(bank_data$size_of_minimum_deposits, bank_data$number_of_new_accounts);  abline(bank_model,col="red"); newx = 50:200; preds = predict(bank_model, newdata=data.frame(size_of_minimum_deposits=newx), interval="confidence"); lines(newx, preds[,3], lty="dashed", col="red"); lines(newx, preds[,2], lty="dashed", col="red")
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-49-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-53-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -1044,7 +1144,7 @@ clothing_model_full = lm(clothing_expenditure~factor(income), data=spending_subs
 xyplot(clothing_expenditure~income, data=spending_subset,  type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-51-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-55-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1084,8 +1184,21 @@ Notice that the “Pure Error SS” is 351920325 and the “Lack of Fit SS” is
 
 ---
 
+* **Interpret the p-values from both ANOVA tables in context.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 2 --&gt;
 
 
+---
+
+* **Interpret the p-values from both ANOVA tables in context.**
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 2 --&gt;
+
+
+---
 ### CDI: Lack of Fit - physicians vs hospital beds
 
 
@@ -1093,7 +1206,7 @@ Notice that the “Pure Error SS” is 351920325 and the “Lack of Fit SS” is
 xyplot(number_physicians ~ number_hospital_beds, data=cdi,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-53-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-57-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1145,7 +1258,7 @@ anova(mod_physician_beds, mod_physician_beds_full)
 xyplot(number_physicians ~ population, data=cdi,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-55-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-59-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1195,7 +1308,7 @@ anova(mod_physician_pop, mod_physician_pop_full)
 xyplot(number_physicians ~ total_personal_income, data=cdi,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-57-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-61-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1317,13 +1430,13 @@ Y = rnorm(n, mean=X^2, sd=10)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-60-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-64-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(Y~X^2, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-60-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-64-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1335,13 +1448,13 @@ Y = rnorm(n, mean=exp(X), sd=5)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-61-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-65-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(Y~exp(X), type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-61-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-65-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -1356,13 +1469,13 @@ Y = rnorm(n, mean=sqrt(X), sd=.1)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-62-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-66-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(Y~sqrt(X), type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-62-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-66-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1374,13 +1487,13 @@ Y = rnorm(n, mean=log(X), sd=.1)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-63-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-67-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(Y~log(X), type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-63-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-67-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -1396,13 +1509,13 @@ Y = rnorm(n, mean=1/X, sd=.2)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-64-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-68-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(Y~1/X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-64-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-68-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1414,13 +1527,13 @@ Y = rnorm(n, mean=exp(-X), sd=.02)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-65-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-69-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(Y~exp(-X), type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-65-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-69-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1461,13 +1574,13 @@ Y = sqrtY^2
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-66-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-70-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(sqrt(Y)~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-66-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-70-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -1482,13 +1595,13 @@ Y = exp(logY)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-67-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-71-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(log(Y)~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-67-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-71-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -1505,13 +1618,13 @@ Y = 1/invY
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-68-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-72-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot((1/Y)~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-68-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-72-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1524,13 +1637,13 @@ Y = log(expY)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-69-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-73-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(exp(Y)~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-69-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-73-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1553,7 +1666,7 @@ Y = exp(logY)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-70-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-74-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 .pull-left[
 
@@ -1561,7 +1674,7 @@ xyplot(Y~X, type=c("p", "r"))
 xyplot(log(Y)~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-71-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-75-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1570,7 +1683,7 @@ xyplot(log(Y)~X, type=c("p", "r"))
 xyplot(log(Y)~log(X), type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-72-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-76-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -1603,13 +1716,13 @@ Y = sqrtY^2
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-73-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-77-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 MASS::boxcox(lm(Y~X))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-73-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-77-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1622,13 +1735,13 @@ Y = 1/invY
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-74-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-78-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 MASS::boxcox(lm(Y~X))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-74-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-78-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -1645,13 +1758,13 @@ Y = exp(logY)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-75-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-79-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 MASS::boxcox(lm(Y~X))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-75-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-79-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1664,13 +1777,13 @@ Y = log(expY)
 xyplot(Y~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-76-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-80-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 MASS::boxcox(lm(Y~X), seq(-5, 5, 1/10))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-76-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-80-2.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1685,7 +1798,7 @@ Y = log(expY)
 xyplot(Y^4~X, type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-77-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-81-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1694,7 +1807,7 @@ xyplot(Y^4~X, type=c("p", "r"))
 MASS::boxcox(lm(Y^4~X), seq(-5, 5, 1/10))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-78-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-82-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -1744,7 +1857,21 @@ Income and Clothing Expenditure for a small subset of the Survey of Household Sp
 xyplot(clothing_expenditure~income, data=spending_subset,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-80-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-84-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+
+* **What transformations might result in a more appropriate linear regression model? Explain your reasoning. **
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 3 --&gt;
+
+---
+
+* **What transformations might result in a more appropriate linear regression model? Explain your reasoning. **
+
+&lt;!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a "&gt;"): --&gt;
+&lt;!-- warm up question 3) 3 --&gt;
+
 
 
 
@@ -1757,7 +1884,7 @@ clothing_model = lm(clothing_expenditure~income, data=spending_subset)
 out = MASS::boxcox(clothing_model)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-81-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-85-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 range(out$x[out$y &gt; max(out$y)-qchisq(0.95,1)/2])
@@ -1775,7 +1902,7 @@ range(out$x[out$y &gt; max(out$y)-qchisq(0.95,1)/2])
 xyplot(I(clothing_expenditure^(.25))~income, data=spending_subset,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-82-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-86-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 clothing_model_25 = lm(I(clothing_expenditure^(.25))~income, data=spending_subset)
@@ -1799,7 +1926,7 @@ msummary(clothing_model_25)
 xyplot(I(log(clothing_expenditure))~income, data=spending_subset,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-83-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-87-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 clothing_model_log = lm(I(log(clothing_expenditure))~income, data=spending_subset)
@@ -1823,7 +1950,7 @@ msummary(clothing_model_log)
 xyplot(clothing_expenditure~I(income^4), data=spending_subset,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-84-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-88-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 clothing_model_x4 = lm(clothing_expenditure~I(income^4), data=spending_subset)
@@ -1851,7 +1978,7 @@ lines(clothing_model_log$model[orderX,2], exp(predict(clothing_model_log))[order
 lines((clothing_model_x4$model[orderX,2])^(1/4), predict(clothing_model_x4)[orderX], col="red", lwd=3)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-85-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-89-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ---
 ### CDI: Transformations - physicians vs hospital beds
 
@@ -1877,7 +2004,7 @@ cdi %&gt;% datatable()
 xyplot(number_physicians ~ number_hospital_beds, data=cdi,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-87-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-91-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1887,7 +2014,7 @@ mod_physician_beds = lm(number_physicians ~ number_hospital_beds, data=cdi)
 out = MASS::boxcox(mod_physician_beds)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-88-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-92-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 range(out$x[out$y &gt; max(out$y)-qchisq(0.95,1)/2])
@@ -1904,7 +2031,7 @@ range(out$x[out$y &gt; max(out$y)-qchisq(0.95,1)/2])
 xyplot(I(number_physicians^(.25)) ~ number_hospital_beds, data=cdi,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-89-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-93-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1913,7 +2040,7 @@ xyplot(I(number_physicians^(.25)) ~ number_hospital_beds, data=cdi,  type=c("p",
 xyplot(I(number_physicians^(.25)) ~ I(number_hospital_beds^(.25)), data=cdi,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-90-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-94-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1926,7 +2053,7 @@ xyplot(I(number_physicians^(.25)) ~ I(number_hospital_beds^(.25)), data=cdi,  ty
 xyplot(number_physicians ~ population, data=cdi,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-91-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-95-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1935,7 +2062,7 @@ xyplot(number_physicians ~ population, data=cdi,  type=c("p", "r", "smooth"))
 out = MASS::boxcox(lm(number_physicians ~ population, data=cdi))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-92-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-96-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 range(out$x[out$y &gt; max(out$y)-qchisq(0.95,1)/2])
@@ -1953,13 +2080,13 @@ range(out$x[out$y &gt; max(out$y)-qchisq(0.95,1)/2])
 xyplot(log(number_physicians) ~ population, data=cdi,  type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-93-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-97-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ```r
 xyplot(log(number_physicians) ~ log(population), data=cdi,  type=c("p", "r"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-93-2.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-97-2.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2007,7 +2134,7 @@ abline(mod_physician_pop, col="red", lwd=3)
 lines(exp(mod_physician_pop_loglog$model[,2]), exp(predict(mod_physician_pop_loglog)), col="blue", lwd=3)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-96-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-100-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -2044,7 +2171,7 @@ Income and Clothing Expenditure for a small subset of the Survey of Household Sp
 xyplot(clothing_expenditure~income, data=spending_subset,  type=c("p", "r", "smooth"))
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-98-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-102-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2059,7 +2186,7 @@ lines(clothing_band$income, clothing_band$Lower.Band, lty=2, col="blue")
 lines(clothing_band$income, clothing_band$Upper.Band, lty=2, col="blue")
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-99-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-103-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -2073,7 +2200,7 @@ lines(clothing_band_25$income, clothing_band_25$Lower.Band, lty=2, col="blue")
 lines(clothing_band_25$income, clothing_band_25$Upper.Band, lty=2, col="blue")
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-100-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-104-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -2090,7 +2217,7 @@ lines(pop_band$population, pop_band$Lower.Band, lty=2, col="blue")
 lines(pop_band$population, pop_band$Upper.Band, lty=2, col="blue")
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-101-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-105-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -2104,7 +2231,7 @@ lines(pop_band$logpopulation, pop_band$Lower.Band, lty=2, col="blue", lwd=2)
 lines(pop_band$logpopulation, pop_band$Upper.Band, lty=2, col="blue", lwd=2)
 ```
 
-&lt;img src="chapter3_files/figure-html/unnamed-chunk-102-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="chapter3_files/figure-html/unnamed-chunk-106-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 
