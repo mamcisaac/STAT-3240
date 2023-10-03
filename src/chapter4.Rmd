@@ -211,24 +211,6 @@ W = sqrt(2* qf(1-.1, 2, clothing_model$df.residual)); W
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 4) 1 -->
 
-* For each individual confidence interval we can be 96.7 percent confident our Y value lies between the interval. When the confidence intervals for the three X values are run simultaneously we can say with 90% confidence that the family of statements will be correct.
-
-* With family confidence coefficient 0.90, we conclude that the mean clothing expenditure is between (1590.177929, 2976.915035) for income = 40000`$`, between (1870.634534, 3306.387990) for income = 50000`$`, and between (1986.288259, 3800.663827) for income = 60000`$`, all at once.
-
-*  We are 90% confident that all three averages of clothing expenditures lays within respective interval at the same time.
-
----
-
-* **Interpret the confidence intervals in your own words.**
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 4) 1 -->
-
-* We can say that with 97% confidence that as X increase Y does as well meaning, that beta1 is positive.
-
-*  we are 90% confident at income equals 4000 the population mean is between 1590.177929 and 2976.915035. We are 90% confident at income equals 5000 the population mean is between 1870.634534 and 3306.387990. We are 90% confident at income equals 6000 the population mean is between 1986.288259 and 3800.663827.
-
-* We are 90% confident that for an income of $40,000 the mean clothing expenditure is between $1590 and $2977. As the income values increase, the confidence intervals increase in value and therefore we can make the assumption that the more income people make, the more they spend on clothing.
 
 
 ---
@@ -381,26 +363,8 @@ S/B
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 4) 2 -->
 
-* we are 90% confident that if we were to ask 3 people whose income fall in the range of the 3 levels 40000, 50000, and 60000), their corresponding clothing expenditure would ... be in the 3 obtained PIs, respectively.
 
-* we predict that in the next sample taken, the observed Y(new) value of clothing expenditure will be between (-1502.3074691, 6069.400433) for income = 40000$, between (-1201.9078682, 6378.930393) for income = 50000$, and between (-937.3097597, 6724.261845) for income = 60000$, all at once.
 
-* We are 90% confident that our next observation for an income of $40,000 will fall between -1502 and 6069, and so on for our other observations of Xh. 
-	+ In this case, we disregard the negative values as it is not possible to spend negative dollars.
----
-
-* **Interpret the prediction intervals in your own words.**
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 4) 2 -->
-
-* With confidences of 97% you can say that when some ones income is 40000$ they are likely to spend between -1502.31$ and 6069.40$. You can say the same about each of the other points as well.
-
-* we conclude that the predicted mean clothing expenditure is between -1502.3074691 and 6069.400433 when income is 40000, between -1201.9078682 and 6378.930393 when income is 50000 and between -937.3097597 and 6724.261845 when income is 60000. 
-
-* We are 90% sure that a person with income 40000, 50000 or 60000 will spend (-1502,6069), (-1201,6378) or (-937,6724) on clothes.
-
-* For the first prediction interval, we can conclude with 90% confidence that the expected amount spent on clothes for an income of `$`40000 is between -`$`1502.3074691 and `$`6069.400433. Similarly, for the second prediction interval, we can conclude with 90% confidence that the expected amount spent on clothes for an income of `$`50000 is between -`$`1201.9078682 and `$`6378.930393. Finally, for the third prediction interval, we can conclude with 90% confidence that the expected amount spent on clothes for an income of `$`60000 is between -`$`937.3097597 and `$`6724.261845.
 ---
 
 ### CDI: Simultaneous CIs and PIs - physicians vs hospital beds
@@ -721,37 +685,6 @@ spending_subset=spending_subset_all[1:30,]
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 4) 3 -->
 
-* If income was measured with error, we would not be able to rely on the regression output given to us and therefore we would not be able to make an accurate analysis with this data.
-
-* If it was discovered that income was measured with error, the β1 estimate in the provided regression would be smaller than the β1 of a regression conducted without error in measuring income.
-
-* the output is misrepresenting reality, as observed clothing expenditure will be matched to an incorrect amount of income
-
-* The regression coefficient would then be biased (always smaller than the true coefficient), with magnitude depending on the relative size of variance of X and Y (income and clothing expenditure).
-
----
-
-* **If it was discovered that income was measured with error, how would that impact your interpretation of the regression output given above? **
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 4) 3 -->
-
-* Then the assumption that the data at each point is normal would be wrong meaning that the way the data was analyzed was . wrong give us an inaccurate model.
-
-*  This depends on the circumstances under which this error was recorded. If the income levels we use in our study come from self-reports, this error should not be of any major concern. Some participants may accidentally report their income as being higher and others will report it as being lower. Overall, these errors should cancel out and the data should maintain its validity. In this case, I would not have to change my interpretation of the above data. 
-
-* if the income was measured with error then the regression output will not be helpful to provide the describe and predict function as the result is based on wrong data.
-
----
-
-* **If it was discovered that income was measured with error, how would that impact your interpretation of the regression output given above? **
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 4) 3 -->
-
-*  If income was measured with error, our formula for regression would be different. This would mean that we need to use berkson model where we will set the predicted variable(50000,60000,70000). When the predictor variable(income) is a constant, and hence the error terms are not correlated with it. So it would provide us fixed value.
-
-* Our interpretation of the regression output would not change. If we consider the Berkson Model, the reported income $X^\ast_i$ would be the person's salary mentioned on their contract. However, the true income $X_i$ would be variable, because income can vary based on sick days and overtime. So, $X_i$ would be a random variable and $X^\ast_i$ would be a fixed quantity. Thus, $X^\ast_i$ and the new error term are uncorrelated, so our regression model above can still be used to conduct tests, after applying the Least Squares procedures so that bo and b1 are considered unbiased.
 
 ---
 
@@ -799,51 +732,9 @@ xyplot(clothing_expenditure~income, data=spending_subset,  type=c("p", "r"))
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 4) 4 -->
 
-* Since we are interested in wether there is a relationship between income and clothing expenditures we want to estimate B1. Then I would choose two levels of X, the two extremes, and put one half of the population at one X and the other half at the other X. That could give us a better understanding if there is a linear relationship or not.
-
-*  For a more accurate β1, two levels of X from two different extremes (really low income and really high income) should be chosen and half the observations should be at each of the two levels. For a more accurate β0, observations should be made at X=0. This is not a goal of our model since no income means no money to spend on clothes. Therefore, the most practical goal for our model in finding β1, therefore the first method is the most useful in this case.
-
-
----
-
-
-* ** If you could design an experiment where you controlled the values of income, how could that change your regression findings?  **
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 4) 4 -->
-
-* That would change the study from observational to experimental, making the regression findings more predictive of future data, 
-	+ and a stronger correlation would be implied
-	+ This could mean external factors could have an effect on the data.
-
-* Using regression analysis which will minimize the effect of confounding variables.
-
-* If you were able to control the income values then the findings could be more narrow or broad 
-depending on how you changed them.
 
 
 
-* ... Berkson Model... 
-
-
----
-
-
-* ** If you could design an experiment where you controlled the values of income, how could that change your regression findings?  **
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 4) 4 -->
-
-
-* By applying the Berkson model, ...
-
-* I would focus on certain range of income and make the range of the X small. That means I will have larger sample size and small range of predictor variable. So that the prediction and description will be more accurate.
-
-*  the change of the values of income will change the slope of regression line.
-
-* You can minimize variance by using income values that are equal to the mean income value of the regression analysis done above.
-
-* If the experiment was in a controlled environment then we could control the X value getting rid of part of the random factor making the data more accurate.
 
 ---
 layout: false
