@@ -684,7 +684,8 @@ msummary(lm(clothing_expenditure~income, data=spending_subset))
 msummary(lm(clothing_expenditure~income_plus_error, data=spending_subset))
 ```
 
-$$\begin{align*} \beta_1^\ast &= \beta_1 \frac{\sigma_X^2}{\sigma_X^2 + \sigma_\delta^2} \\ &= \beta_1 \frac{\sigma_X^2}{\sigma_X^2 + \sigma_X^2/4} \\ &= \beta_1 (.8) \end{align*}$$
+
+$$\begin{align*} \beta_1^\ast &= \beta_1 \frac{\sigma_X^2}{\sigma_X^2 + \sigma_\delta^2} = \beta_1 \frac{\sigma_X^2}{\sigma_X^2 + \sigma_X^2/4} = \beta_1 (.8) \end{align*}$$
 
 ---
 ```{r, echo=FALSE}
