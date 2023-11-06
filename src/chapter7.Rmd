@@ -269,6 +269,7 @@ layout: true
 class: inverse
 
 ---
+
 ```{r, echo=FALSE}
 spending_subset=spending_subset_all[1:500,]
 ```
@@ -277,7 +278,9 @@ spending_subset=spending_subset_all[1:500,]
 clothing_model = lm(clothing_expenditure~income+sex+food_expenditure+recreation_expenditure+ miscellaneous_expenditure, data=spending_subset)
 msummary(clothing_model)
 ```
- 
+
+---
+
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
 clothing_model_reordered = lm(clothing_expenditure~miscellaneous_expenditure+income+sex+food_expenditure+recreation_expenditure, data=spending_subset)
 msummary(clothing_model_reordered)
@@ -362,7 +365,9 @@ with(spending_subset, data.frame(income, food=food_expenditure, sex= sex=="male"
 * No, for the F-statistics is 30.72419 on 5 and 494 DF, with p-value almost 0, which implies rejection of null.
 
 * No, the f-statistic is too large. Also the very small p-value (2.2204e-16) indicates that we should reject the null hypothesis and conclude that at least some of the slope parameters are not equal to zero.
+
 ---
+
 layout: false
 
 ### Recap: Sections 7.1-7.3
@@ -746,7 +751,9 @@ cor(cor.data)
 * there certainly appears to be multicollinearity, although it is not very strong between Y and SOME of the independent variables, it is definetly still present.
 
 * There is no multicollinearity for we didn't allow any interaction between the factors.
+
 ---
+
 layout: false
 
 

@@ -151,13 +151,19 @@ copier_data %>% datatable()
 copier_model = lm(minutes~copiers, data=copier_data)
 msummary(copier_model)
 anova(copier_model)
-confint(copier_model)
 ```
 
 ---
 
+
+
+
+
 ```{r}
 xyplot(minutes~copiers, data=copier_data, type=c("p", "r"))
+
+confint(copier_model)
+
 ```
 
 ---
@@ -176,6 +182,7 @@ mosaic::cor.test(minutes~copiers, data=copier_data, method="spearman", exact=FAL
 ```
 
 ---
+
 ```{r}
 copier_model_reduced = lm(minutes~1, data=copier_data)
 anova(copier_model_reduced, copier_model)

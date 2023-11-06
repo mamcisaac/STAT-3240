@@ -103,6 +103,8 @@ We will center the predictors in order to avoid the computational inaccuracies t
 * $income\_c_{i} = income_i - \overline{income}$
 * ${food\_expenditure\_c}_i = food\_expenditure_i - \overline{food\_expenditure}$
 
+---
+
 ```{r}
 with(spending_subset, data.frame(clothing= clothing_expenditure, income, food=food_expenditure, income2=I(income^2), food2 = I(food_expenditure^2), income_food = income*food_expenditure)) %>% cor() %>% round(3)
 
@@ -150,6 +152,8 @@ y = dnorm(x)
 ```{r}
 plot(x, y, ylim=c(-.1, .45))
 
+lines(x, predict(lm(y~poly(x, 1))), type="l", col="black", lwd=2)
+lines(x, predict(lm(y~poly(x, 2))), type="l", col="yellow", lwd=2)
 lines(x, predict(lm(y~poly(x, 5))), type="l", col="blue", lwd=2)
 lines(x, predict(lm(y~poly(x, 10))), type="l", col="green", lwd=2)
 lines(x, predict(lm(y~poly(x, 15))), type="l", col="red", lwd=2)
@@ -412,7 +416,9 @@ clothing_transformed_model_reduced = lm(clothing_transformed~income_c+food_c, da
 
 anova(clothing_transformed_model_reduced, clothing_transformed_model)
 ```
---
+
+---
+
 Note that RSS could be found in 
 ```{r}
 anova(clothing_transformed_model_reduced)
@@ -450,6 +456,11 @@ class: inverse
 clothing_model = lm(clothing_expenditure~income + I(income^2) + I(income^3), data=spending_subset)
 msummary(clothing_model)
 ```
+
+---
+
+### Warm-up Exercises
+
 
 ```{r}
 clothing_model_centered = lm(clothing_expenditure~I(income-mean(income)) + I((income-mean(income))^2) + I((income-mean(income))^3), data=spending_subset)
@@ -493,6 +504,8 @@ msummary(clothing_model_centered)
 <!-- warm up question 8a) 2 -->
 
 * $\cdots$
+* It is difficult to interpret our model in this fashion. Normally, we would look at our Beta_income and state "When x increases by 1, y increases by beta with all other predictors held constant". This does not work in our case because when x is increased, x^2 cannot remain constant.
+
 
 ---
 
@@ -542,7 +555,8 @@ Then
 $$E[Y|X_1, X_2] = \beta_0 + \beta_1 X_{1} + \beta_2 X_{2} + \beta_3 X_{1} X_{2}.$$
 
 We can use this to understand the meaning of the regression coefficients: 
---
+
+---
 
 $$\begin{align*} 
 E[Y|0, 0] = & \beta_0 + \beta_1  (0) + \beta_2 (0) + \beta_3 (0) (0) = \beta_0
@@ -993,6 +1007,11 @@ $$E[Y] = \beta_0 + \beta_1 X_{1} + \beta_2 X_{2} + \beta_{3} X_{3} + \beta_{4} X
 ---
 ```{r}
 msummary(lm(clothing_expenditure~income+type_of_dwelling, data=spending_subset))
+```
+
+---
+
+```{r}
 spending_subset$type_of_dwelling = factor(spending_subset$type_of_dwelling, levels=c("single_detached", "semi_detached", "row_house", "apartment", "duplex", "other"))
 msummary(lm(clothing_expenditure~income+type_of_dwelling, data=spending_subset))
 ```

@@ -97,7 +97,7 @@ Assuming that $E[\varepsilon] = 0$, the regression function for model is
 $$E[Y]= \beta_0+ \beta_1 X_1 + \beta_2 X_2$$
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="60%"}
-include_graphics("../img/Figure6p1.png")
+include_graphics("img/Figure6p1.png")
 ```
 
 <!-- explain residuals and \beta_0 in that figure -->
@@ -108,7 +108,7 @@ class: inverse
 
 ```{r, include=FALSE}
 # scatter3d(clothing_expenditure~income+food_expenditure, data=spending_subset)
-# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("img"), movie="clothing_food_income", convert=TRUE)
+# rgl::movie3d(rgl::spin3d(axis = c(0, 1, 0)), duration = 12, dir=here("src/img"), movie="clothing_food_income", convert=TRUE)
 ```
 
 ```{r, results='hide', eval=FALSE}
@@ -116,7 +116,7 @@ car::scatter3d(clothing_expenditure~income+food_expenditure, data=spending_subse
 ```
 
 .center[
-![clothing_food_income.gif](`r here("img", "clothing_food_income.gif")`)
+![clothing_food_income.gif](`r here("src/img", "clothing_food_income.gif")`)
 ]
 
 ---
@@ -450,7 +450,8 @@ msummary(clothing_sex_3_model)
 clothing_sex = lm(clothing_expenditure~sex, data=spending_subset)
 msummary(clothing_sex)$r.squared
 ```
---
+
+---
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
 anova(clothing_sex, clothing_sex_3_model)
@@ -734,7 +735,7 @@ $\text{ where } s \{predmean \} = MSE \ (\frac{1}{m} + \mathbb{X_{h}}' (\mathbb{
 
 
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=FALSE, out.width="100%"}
-include_graphics("../img/Figure6p3.png")
+include_graphics("img/Figure6p3.png")
 ```
 
 
@@ -838,7 +839,7 @@ car::scatter3d(clothing_expenditure~income+food_expenditure, data=spending_subse
 ```
 
 .center[
-![clothing_food_income.gif](`r here("img", "clothing_food_income.gif")`)
+![clothing_food_income.gif](`r here("src/img", "clothing_food_income.gif")`)
 ]
 
 
