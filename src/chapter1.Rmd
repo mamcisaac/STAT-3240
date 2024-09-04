@@ -64,11 +64,13 @@ class: inverse
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE: -->
 <!-- warm up introduction 2 -->
 
-* To make sure I am prepared for a deeper discussion in class and so that we do not waste class time discussing things that can be learned at home.
-
-* I understand that being active in my learning is the key to doing well in any courses. Being active in learning means I need to read the materials prior to going to the class. Professors will address any questions that I don't understand or misunderstand in the class.
-
 * It helps us make use of our class time, instead of going through what we already have access to in the textbook, we would get better understanding of what we have read before the class.
+
+* Not to be lost in the class and have adequate knowledge of concept prior the class to clarify doubts.
+
+* Because the time in class is not enough to cover every aspect of the course in-depth, so this method will allow us to properly go over tough parts of the course during the little time we have.
+
+
 
 
 ---
@@ -81,11 +83,11 @@ class: inverse
 <!-- warm up introduction 3 -->
 
 
-* I like the format of this course. It seems like it will be very engaging and fun. I'm looking forward to it.
+* The grading part, I didn’t really understand the passing threshold policy.
 
-* I enjoy "discussion" classes because I  find it easier for me to learn better, coming into the class with the knowledge of what I  have read and leaving with a better understanding; this is what I found interesting
+* From the syllabus what I found interesting was we will have a long term group project that will count 20% towards the grade. I'm curious to know what kind of project it is.
 
-* The assigned reading was simply the course syllabus and there was nothing that was really confusing or difficult about it. I will say that the open-ended questions (such as the one I'm answering now) are new to me. Although interesting, I'm fearful of these as I'm not the best writer. Even if I have a decent idea/understanding of a question/concept it can be hard for me to put everything down properly with words.
+* I'm just asking about where to get the compulsory textbook for the course.
 
 ---
 
@@ -294,9 +296,7 @@ class: inverse
 
 ### Data Set for Warm Up Questions: SHS
 
-The Canadian Survey of Household Spending is carried out annually across Canada. 
-
-(http://dli-idd-nesstar.statcan.gc.ca.proxy.library.upei.ca/webview/) 
+The Canadian Survey of Household Spending is carried out annually across Canada: https://www.statcan.gc.ca/en/survey/household/3508
 
 The main purpose of the survey is to obtain detailed information about household spending. Information is also collected about dwelling characteristics as well as household equipment. 
 

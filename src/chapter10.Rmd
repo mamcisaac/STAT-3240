@@ -126,7 +126,7 @@ life_insurance %>% datatable()
 
 ---
 
-```{r}
+```{r, echo=TRUE, eval=FALSE}
 A <- resid(lm(insurance ~ risk_aversion, life_insurance))
 B <- resid(lm(income ~ risk_aversion, life_insurance))
 par(mfrow = c(1, 2), pch = 19)
@@ -140,6 +140,24 @@ title("(b) Added-Variable Plot for income")
 abline(lm(A ~ B))
 abline(0, 0, lty = 2)
 ```
+
+---
+
+```{r, echo=FALSE, eval=TRUE}
+A <- resid(lm(insurance ~ risk_aversion, life_insurance))
+B <- resid(lm(income ~ risk_aversion, life_insurance))
+par(mfrow = c(1, 2), pch = 19)
+
+plot(resid(fit) ~ income, life_insurance, xlab = "income", ylab = "Residual")
+title("(a) Residual Plot against income")
+abline(0, 0, lty = 2)
+
+plot(A ~ B, xlab = "e(X1|X2)", ylab = "e(Y|X2)")
+title("(b) Added-Variable Plot for income")
+abline(lm(A ~ B))
+abline(0, 0, lty = 2)
+```
+
 <!-- replicating 10.3 from book as per https://rpubs.com/bryangoodrich/5224 (highlighting that we are finding residuals and then regressing them). -->
 <!-- Comment that apparent non-linearity is not a big problem marginally (that, after accounting for X1, adding a curvilinear component to x2 won't improve things much), and highlight the potentially-influential point at the top right -->
 
@@ -394,12 +412,20 @@ qt(1-.05/(2*dim(spending_subset)[1]), df=clothing_model$df.residual-1)
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 10) 1 -->
 
-*  Based on the F-test values and p-values, we assume that the best model for our exploratory regression includes the following exploratory variables: other than income; marital_status, age_group, sex, food_expenditure, transportation_expenditure, personal_care_expenditure, recreation_expenditure, and type_of_dwelling. Note that total_consumption_expenditure is not included in the model besides having a large F value and small p-value. This is because total_consumption_expenditure's GVIF is high, meaning it could cause multicollinearity.
+*  The Best model for our exploratory regression analysis would be a model with personal care expenditure, transportation expenditure, recreational expenditure and total consumption expenditure as predictors. This is because the line of best fit in their respective added variable plots has a slope that is much different than zero, indicating that adding these variables to a model with all other variables will significantly reduced our sum of squares error.
 
-* There is no best model, but the set of best models would include the following 7 variables: age group, type of dwelling, food expenditure, transportation expenditure, personal care expenditure, total consumption expenditure, recreation expenditure. These variables should be in the model because, according to their Added-Variable plots, the points of the residuals e(Y|everything other than Xi) plotted versus e(Xi| everything other than Xi) form a linear band with a slope that is either negative or positive, but different than 0, so Xi is helpful to the model, given everything else already in it. Moreover, I included all groups of age because it is a qualitative variable and some of the groups are significant to the model and others are not, but the comparison between different age groups can be helpful for making inferences. I excluded: income, marital status, sexmale, tobacco alcohol expenditure, weeks worked, total expenditure because the points in their respective Added-Variable plots form a band with a slope very close to 0, so those predictor variables do not contain any additional information that is useful for predicting Y beyond the variables already in the model. (The reason I removed some qualitative variables is because the plots for each of their cases do not give any additional help in predicting Y, given everything else in the model. However, no matter the variable we include in the model, the marginal strength of the linear relation of Xi to Y, given everything else in the model is not strong, since the points in the Added-Variable plots are not tightly gathered around the line in the center of the band that they form.
+* Based on the P-Values, we should include: income, marital_status, age_group, sex, food_expenditure, transportation_expenditure, and personal_care_expenditure, which indicates that they explain a lot in the prediction of clothing expenditure. Additionally, the Variance Inflation Factor for the previously mentioned predictor variables are all relatively low, which indicates that these variables do not show any severe multicollinearity problems.
 
 ---
 
+* **Based on the given output, what is the best model for our exploratory regression analysis? Justify your reasoning.**
+
+* Based on output, we should include all the predictor variables except the total_consumption_expenditure and total_expenditure for the best model for our exploratory regression analysis. This is because these two variables have high VIF values and that might lead to multicollinearity issues that could affect the model.
+ 
+* There seem to be some multicollinearity between total consumption expenditure and total expenditure, so removing one of them would be the best model 
+ 
+---
+ 
 * **Based on the given output, do you suspect there are any outliers that might be unduly influencing our regression model? Justify your reasoning.**
 
 
@@ -407,10 +433,16 @@ qt(1-.05/(2*dim(spending_subset)[1]), df=clothing_model$df.residual-1)
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 10) 2 -->
 
-* Yes, I think there are outliers which would influence our model. There is a point in studentized residual plot which is classified as outlier. The Rstudent vs outlier and leverage diagnostics for clothing expenditure as well as DFFITS vs influence diagnostics also shows some outliers. In each plot, there are some points which are above threshold, we can say that these are outliers. This outliers have lots of influence in the regression model. Some outliers would change our regression line however other does not make much difference.
+* I do not suspect there are any extreme outliers influencing our model, due to the fact that the absolute value of our DFBETAS never exceeds 2/sqrt(n), our DFFITS never exceeds 2/sqrt(p/n) and our cooks distance plot never comes close to the 50th percentile of F(p, n-p)
 
+* Yes I believe there are outliers that might influence our regression model. Any points far away from 0 using the dffits, cook's d chart are potential outliers
 
 * there are definetly some outliers as we can see from our plots, but they do not seem to be influencing our regression model a great deal.
+
+* 251, 557, and 1503 might the outliers that might be unduly influencing our regression model as they seem to have high leverage values.
+
+* points 139, 251, 1503 are notable outliers from the diagnostic plot that maybe problematic for our model
+
 ---
 layout:false
 
@@ -611,7 +643,7 @@ We call these measures, respectively, $DFFITS$, **Cook's Distance**, and $DFBETA
 | Influence Measure | Formula | Guideline for identifying influential cases | 
 |-----------|-------------|-----------------------------------------------|
 | $DFFITS_i$ | $\displaystyle \frac{\hat Y_i - \hat Y_{i(i)}}{\sqrt{MSE_{(i)} h_{ii}}}$ | exceeding $1$ for small data sets, exceeding $2\sqrt{p/n}$ for large data sets| 
-| Cook's $D_i$ | $\displaystyle \frac{\sum_{j=1}^n (\hat Y_j - \hat Y_{j(i)})^2}{p MSE}$ | Near or exceeding the $50$th percetile of $F(p, n-p)$ | 
+| Cook's $D_i$ | $\displaystyle \frac{\sum_{j=1}^n (\hat Y_j - \hat Y_{j(i)})^2}{p MSE}$ | Near or exceeding the $50$th percentile of $F(p, n-p)$ (basically $D_i > 1$), though others suggest $4/n$ | 
 | $DFBETAS_{k(i)}$ | $\displaystyle \frac{b_k  - b_{k(i)}}{\sqrt{MSE_{(i)} (\mathbb{X'X})^{-1}_{[k,k]}}}$ | exceeding $1$ for small data sets, exceeding $2/\sqrt{n}$ for large data sets| 
 
 --
