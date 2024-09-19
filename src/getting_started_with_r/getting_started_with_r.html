@@ -12,7 +12,7 @@
 <meta name="author" content="Michael McIsaac" />
 
 
-<title>Wrap Up Assignment: Chapter 1 template</title>
+<title>Getting Started with R/Rstudio</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -349,14 +349,14 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Wrap Up Assignment: Chapter 1 template</h1>
+<h1 class="title toc-ignore">Getting Started with R/Rstudio</h1>
 <h4 class="author">Michael McIsaac</h4>
 
 </div>
 
 
-<div id="read-in-the-data" class="section level1">
-<h1>Read in the data</h1>
+<div id="read-in-the-data" class="section level2">
+<h2>Read in the data</h2>
 <p>In order to read the data into R, you need to enter the path to the
 dataset.</p>
 <p>You should create a new “Project” in RStudio and, once you download
@@ -378,6 +378,7 @@ senic = read_csv(here(&quot;data&quot;, &quot;senic.csv&quot;))</code></pre>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
 <div id="regression-modelling" class="section level2">
 <h2>Regression Modelling</h2>
 <p>Run a linear model based on the data set that we called “senic” and
@@ -412,18 +413,28 @@ predictions</p>
 ## 3 11.00597 7.446689 14.56524</code></pre>
 <p>Find the Working-Hotelling confidence band values for a few specific
 predictions</p>
-<pre class="r"><code>ci.reg(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), type=&quot;w&quot;, alpha=.05)</code></pre>
-<pre><code>##   infection_risk      Fit Lower.Band Upper.Band
-## 1            5.0 10.24774   9.729319   10.76617
-## 2            5.5 10.62685  10.024255   11.22945
-## 3            6.0 11.00597  10.283175   11.72876</code></pre>
+<pre class="r"><code>predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval=&quot;confidence&quot;, method=&quot;wh&quot;, alpha=.05)</code></pre>
+<pre><code>## 
+## Working-Hotelling-adjusted confidence intervals
+## 
+## Family-wise confidence level of at least 0.95 
+## 
+##        fit       lwr      upr
+## 1 10.24774  9.729319 10.76617
+## 2 10.62685 10.024255 11.22945
+## 3 11.00597 10.283175 11.72876</code></pre>
 <p>Find the Bonferroni simultaneous confidence interval values for a few
 specific predictions</p>
-<pre class="r"><code>ci.reg(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), type=&quot;b&quot;, alpha=.05)</code></pre>
-<pre><code>##   infection_risk      Fit Lower.Band Upper.Band
-## 1            5.0 10.24774   9.739475   10.75601
-## 2            5.5 10.62685  10.036060   11.21765
-## 3            6.0 11.00597  10.297334   11.71460</code></pre>
+<pre class="r"><code>predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval=&quot;confidence&quot;, method=&quot;bonferroni&quot;, alpha=.05)</code></pre>
+<pre><code>## 
+## Bonferroni-adjusted confidence intervals
+## 
+## Family-wise confidence level of at least 0.95 
+## 
+##        fit       lwr      upr
+## 1 10.24774  9.739475 10.75601
+## 2 10.62685 10.036060 11.21765
+## 3 11.00597 10.297334 11.71460</code></pre>
 <p>Run a linear model based on the data set that we called “senic”, but
 only the parts where “region” has the value “NC”</p>
 <pre class="r"><code>model_infection_nc = lm(length_of_stay~infection_risk, data=senic, subset=(region==&quot;NC&quot;))
@@ -1176,7 +1187,6 @@ vif(model)</code></pre>
 <pre><code>## [1] 3.604723</code></pre>
 <pre class="r"><code>qf(.5, p, n-p)</code></pre>
 <pre><code>## [1] 0.8451308</code></pre>
-</div>
 </div>
 
 
