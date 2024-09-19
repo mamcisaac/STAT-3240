@@ -1,0 +1,290 @@
+---
+title: 'Getting Started with R/Rstudio'
+author: "Michael McIsaac"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+### Load a few helpful packages (after first installing them if they aren't already installed). 
+
+#specify the packages of interest
+packages = c("ALSM", "mosaic", "car", "leaps", "tidyverse", "here")
+
+#use this function to check if each package is on the local machine
+#if a package is installed, it will be loaded
+#if any are not, the missing package(s) will be installed and loaded
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(char=packages)
+```
+
+## Read in the data
+In order to read the data into R, you need to enter the path to the dataset. 
+
+You should create a new "Project" in RStudio and, once you download your .csv file, you should place that dataset inside your project folder (ideally in a sub-folder called something like "data").
+That way, your path could be relative to project directory. 
+Alternately, you could use something like `file.choose()` to bring up a GUI that allows you to point and click on the file, but this means you need to point and click everytime you re-run the code and your code would not be reproducible (someone else couldn't run your Rmd file and get the same output). 
+
+```{r read_in_data}
+# Now read in the data from the defined path:
+senic = read_csv(here("data", "senic.csv"))
+```
+## Regression Modelling 
+
+Run a linear model based on the data set that we called "senic" and summarize the model fit
+
+```{r}
+model_infection = lm(length_of_stay~infection_risk, data=senic)
+msummary(model_infection)
+```
+
+Find the confidence intervals for the parameters in the model
+
+```{r}
+confint(model_infection)
+```
+
+Find the pointwise confidence intervals for a few specific predictions
+
+```{r}
+predict(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval="confidence", level=.95)
+```
+
+Find the pointwise prediction intervals for a few specific predictions
+```{r}
+predict(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval="prediction", level=.95)
+```
+
+Find the Working-Hotelling confidence band values for a few specific predictions
+
+```{r}
+ci.reg(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), type="w", alpha=.05)
+```
+
+
+Find the Bonferroni simultaneous confidence interval values for a few specific predictions
+
+```{r}
+ci.reg(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), type="b", alpha=.05)
+```
+
+Run a linear model based on the data set that we called "senic", but only the parts where "region" has the value "NC"
+
+```{r}
+model_infection_nc = lm(length_of_stay~infection_risk, data=senic, subset=(region=="NC"))
+msummary(model_infection_nc)
+```
+
+Run a linear model based on the data set that we called "senic", but with the "infection_risk" variable centered at 0:
+
+```{r}
+model_infection_centered = lm(length_of_stay~I(infection_risk-mean(infection_risk)), data=senic)
+msummary(model_infection_centered)
+```
+
+Run a linear model based on the data set that we called "senic", but with both "infection_risk" and "age" as predictor variables
+```{r}
+model_infection_age = lm(length_of_stay~infection_risk + age, data=senic)
+msummary(model_infection_age)
+```
+
+Find the confidence interval for a specific prediction from the multiple linear regression model (infection risk is 5, age is 50): 
+
+```{r}
+predict(model_infection_age, newdata=data.frame(infection_risk=5, age=50), interval="confidence", level=.95)
+```
+Find the pointwise prediction intervals for a few specific prediction from the multiple linear regression model (1: infection risk is 5 and age is 50; 2: infection risk is 6 and age is 40): 
+
+```{r}
+predict(model_infection, newdata=data.frame(infection_risk=c(5, 6), age=c(50, 40)), interval="prediction", level=.95)
+```
+
+
+
+
+## Other potentially useful code and functions for future assignments
+
+Create an ANOVA table
+```{r}
+anova(model_infection)
+```
+
+Find R^2
+
+```{r}
+summary(model_infection)$r.squared
+```
+
+Calculate Pearson correlation
+```{r}
+mosaic::cor.test(length_of_stay~infection_risk, data=senic, method="pearson")
+```
+
+Calculate Spearman correlation
+```{r}
+mosaic::cor.test(length_of_stay~infection_risk, data=senic, method="spearman", exact=FALSE)
+```
+
+Conduct a General Linear Test
+```{r}
+model_infection_reduced = lm(length_of_stay~1, data=senic)
+anova(model_infection_reduced, model_infection)
+```
+
+Test for Lack of Fit
+
+```{r}
+pacman::p_load_gh("cran/alr3")
+model_infection_full = lm(length_of_stay~factor(infection_risk), data=senic)
+anova(model_infection, model_infection_full)
+alr3::pureErrorAnova(model_infection)
+```
+
+Create Residual plots
+
+```{r}
+xyplot(length_of_stay~infection_risk, data=senic,  type=c("p", "smooth"))
+xyplot(resid(model_infection)~senic$infection_risk, ylab="Residuals", xlab="Infection risk", type=c("p", "smooth"))
+xyplot(resid(model_infection)~predict(model_infection), ylab="Residuals", xlab="Fitted Values", type=c("p", "smooth"))
+xyplot(abs(resid(model_infection))~predict(model_infection), ylab="Absolute Residuals", xlab="Fitted Values", type=c("p", "smooth"))
+xyplot(resid(model_infection)~senic$routine_culturing_ratio, ylab="Residuals", type=c("p", "smooth"))
+boxplot(resid(model_infection), ylab="Residuals", horizontal=TRUE)
+qqPlot(resid(model_infection), ylab="Residuals")
+```
+
+Box Cox Plot
+
+```{r}
+MASS::boxcox(model_infection)
+```
+
+LOWESS curve
+
+```{r}
+scatter.smooth(senic$length_of_stay, senic$infection_risk)
+```
+
+5 number summary
+
+```{r}
+summary(senic$infection_risk)
+```
+
+Change the order of a categorical (factor) variable (note that the first category listed is the reference category)
+```{r}
+senic$region = factor(senic$region, levels=c("W", "NE", "NC", "S"))
+```
+
+
+
+## Below is code that will likely be useful in the wrap-up assignment for Chapter 9:
+
+Remove unwanted predictors
+```{r}
+senic = senic[, -c(7,8)]
+```
+
+Transform the outcome
+```{r}
+senic$length_of_stay = log10(senic$length_of_stay)
+```
+
+Separate the data set into a "training" set and a "validation" set
+```{r}
+train = senic[41:110, ]
+validation = senic[1:40, ]
+```
+
+Set up a first-order linear regression model with all predictor variables
+```{r}
+stay_model = lm(length_of_stay~., data=train)
+```
+
+Calculate various model selection critiria for all possible models; retain only the 3 best models of each size (i.e., for each number of predictor variables)
+```{r}
+subsets = regsubsets(formula(stay_model), data=model.frame(stay_model), nvmax=10, nbest= 3)
+```
+
+Produce a data frame that displays the model selection criteria in an easier to read manner
+```{r}
+model_selection_criteria = data.frame(with(summary(subsets), cbind(p = as.numeric(rownames(which)), which, rss, rsq, adjr2, cp, bic)))
+```
+
+Order the models based on different criteria
+```{r}
+model_selection_criteria[order(model_selection_criteria$bic),]
+model_selection_criteria[order(model_selection_criteria$rsq),]
+model_selection_criteria[order(model_selection_criteria$adjr2),]
+model_selection_criteria[order(model_selection_criteria$cp),]
+```
+
+Estimate parameters using the selected model(s). E.g., 
+
+```{r}
+model_best 			= lm(length_of_stay~infection_risk+routine_xray_ratio+average_daily_census, data=train)
+model_secondbest= lm(length_of_stay~infection_risk+routine_xray_ratio+average_daily_census+number_of_nurses, data=train)
+model_thirdbest	= lm(length_of_stay~infection_risk+routine_xray_ratio+number_of_beds, data=train)
+```
+
+Extract parameter estimates
+```{r}
+msummary(model_best)
+msummary(model_best)$sigma^2
+msummary(model_best)$r.squared
+msummary(model_best)$adj.r.squared
+
+msummary(model_secondbest)
+msummary(model_thirdbest)
+```
+
+Estimate parameters for the best model(s) using the validation data set
+
+```{r}
+model_best.validation 			= lm(length_of_stay~infection_risk+routine_xray_ratio+average_daily_census, data=validation)
+
+msummary(model_best.validation)
+msummary(model_best.validation)$sigma^2
+msummary(model_best.validation)$r.squared
+msummary(model_best.validation)$adj.r.squared
+```
+
+Predict values for the validation data using the training model
+```{r}
+predict_fromtraining = model_best %>% predict(validation)
+```
+
+Predict values for the validation data using the validation model
+```{r}
+predict_withinvalidation = model_best.validation %>% predict(validation)
+
+MSPR = mean((predict_fromtraining - validation$length_of_stay)^2)
+```
+
+## Below is code that will likely be useful in the wrap-up assignment for Chapter 10:
+
+
+Note: you must define n and p appropriately for your data set:
+```{r}
+dim(senic)
+n=100
+p=4
+```
+
+
+```{r}
+cor(senic[,c(2, 5, 9)])
+
+model = lm(I(log10(senic$length_of_stay))~age+routine_xray_ratio+average_daily_census, data=senic)
+vif(model)
+sort(rstudent(model)) 
+sort(hatvalues(model))
+
+cooks.distance(model)
+dffits(model)
+dfbetas(model)
+
+qt(1-.05/(2*n), df=n-p-1)
+qf(.5, p, n-p)
+
+```
