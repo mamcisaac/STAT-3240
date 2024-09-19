@@ -1730,10 +1730,10 @@ xyplot(clothing_expenditure~income, data=spending_subset,  type=c("p", "r", "smo
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
 clothing_model = lm(clothing_expenditure~income, data=spending_subset)
 x_values= c(5000:100000)
-clothing_band = ALSM::ci.reg(clothing_model, newdata=data.frame(infection_risk=x_values), type="w", alpha=.05)
+clothing_band = api2lm::predict_adjust(clothing_model, newdata=data.frame(income=x_values), interval="confidence", method="wh", level=.95)
 scatter.smooth(spending_subset$income, spending_subset$clothing_expenditure)
-lines(clothing_band$income, clothing_band$Lower.Band, lty=2, col="blue")
-lines(clothing_band$income, clothing_band$Upper.Band, lty=2, col="blue")
+lines(x_values, clothing_band[,"lwr"], lty=2, col="blue")
+lines(x_values, clothing_band[,"upr"], lty=2, col="blue")
 ```
 
 ---
@@ -1741,10 +1741,10 @@ lines(clothing_band$income, clothing_band$Upper.Band, lty=2, col="blue")
 ```{r, fig.cap="", include=TRUE, message=FALSE, echo=TRUE, eval=TRUE}
 x_values= c(5000:100000)
 clothing_model_25 = lm(I(clothing_expenditure^(.25))~income, data=spending_subset)
-clothing_band_25 = ALSM::ci.reg(clothing_model_25, newdata=data.frame(infection_risk=x_values), type="w", alpha=.05)
+clothing_band_25 = api2lm::predict_adjust(clothing_model_25, newdata=data.frame(income=x_values), interval="confidence", method="wh", level=.95)
 scatter.smooth(spending_subset$income, I(spending_subset$clothing_expenditure^(.25)))
-lines(clothing_band_25$income, clothing_band_25$Lower.Band, lty=2, col="blue")
-lines(clothing_band_25$income, clothing_band_25$Upper.Band, lty=2, col="blue")
+lines(x_values, clothing_band_25[,"lwr"], lty=2, col="blue")
+lines(x_values, clothing_band_25[,"upr"], lty=2, col="blue")
 ```
 
 ---
@@ -1755,21 +1755,21 @@ lines(clothing_band_25$income, clothing_band_25$Upper.Band, lty=2, col="blue")
 ```{r,  fig.cap="", include=TRUE, fig.height=5}
 x_values= seq(0,8000000, 1000)
 mod_physician_pop = lm(number_physicians ~ population, data=cdi)
-pop_band = ALSM::ci.reg(mod_physician_pop, newdata=data.frame(infection_risk=x_values), type="w", alpha=.05)
+pop_band = api2lm::predict_adjust(mod_physician_pop, newdata=data.frame(population=x_values), interval="confidence", method="wh", level=.95)
 scatter.smooth(cdi$population, cdi$number_physicians)
-lines(pop_band$population, pop_band$Lower.Band, lty=2, col="blue")
-lines(pop_band$population, pop_band$Upper.Band, lty=2, col="blue")
+lines(x_values, pop_band[,"lwr"], lty=2, col="blue")
+lines(x_values, pop_band[,"upr"], lty=2, col="blue")
 ```
 ]
 
 .pull-right[
 ```{r,  fig.cap="", include=TRUE, fig.height=5}
-x_values= seq(10, 16, out.length=1000); cdi$logpopulation = log(cdi$population)
+x_values= seq(10, 16, length.out=1000); cdi$logpopulation = log(cdi$population)
 mod_physician_pop_log = lm(log(number_physicians) ~ logpopulation, data=cdi)
-pop_band = ALSM::ci.reg(mod_physician_pop_log, newdata=data.frame(logpopulation=x_values), type="w", alpha=.05)
+pop_band = api2lm::predict_adjust(mod_physician_pop_log, newdata=data.frame(logpopulation=x_values), interval="confidence", method="wh", level=.95)
 scatter.smooth(log(cdi$population), log(cdi$number_physicians), lwd=2)
-lines(pop_band$logpopulation, pop_band$Lower.Band, lty=2, col="blue", lwd=2)
-lines(pop_band$logpopulation, pop_band$Upper.Band, lty=2, col="blue", lwd=2)
+lines(x_values, pop_band[,"lwr"], lty=2, col="blue")
+lines(x_values, pop_band[,"upr"], lty=2, col="blue")
 ```
 ]
 
