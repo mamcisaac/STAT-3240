@@ -413,7 +413,7 @@ predictions</p>
 ## 3 11.00597 7.446689 14.56524</code></pre>
 <p>Find the Working-Hotelling confidence band values for a few specific
 predictions</p>
-<pre class="r"><code>predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval=&quot;confidence&quot;, method=&quot;wh&quot;, alpha=.05)</code></pre>
+<pre class="r"><code>predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval=&quot;confidence&quot;, method=&quot;wh&quot;, level=.95)</code></pre>
 <pre><code>## 
 ## Working-Hotelling-adjusted confidence intervals
 ## 
@@ -425,7 +425,7 @@ predictions</p>
 ## 3 11.00597 10.283175 11.72876</code></pre>
 <p>Find the Bonferroni simultaneous confidence interval values for a few
 specific predictions</p>
-<pre class="r"><code>predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval=&quot;confidence&quot;, method=&quot;bonferroni&quot;, alpha=.05)</code></pre>
+<pre class="r"><code>predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval=&quot;confidence&quot;, method=&quot;bonferroni&quot;, level=.95)</code></pre>
 <pre><code>## 
 ## Bonferroni-adjusted confidence intervals
 ## 

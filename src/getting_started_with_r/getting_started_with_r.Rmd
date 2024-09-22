@@ -59,14 +59,14 @@ predict(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interv
 Find the Working-Hotelling confidence band values for a few specific predictions
 
 ```{r}
-predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval="confidence", method="wh", alpha=.05)
+predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval="confidence", method="wh", level=.95)
 ```
 
 
 Find the Bonferroni simultaneous confidence interval values for a few specific predictions
 
 ```{r}
-predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval="confidence", method="bonferroni", alpha=.05)
+predict_adjust(model_infection, newdata=data.frame(infection_risk=c(5, 5.5, 6)), interval="confidence", method="bonferroni", level=.95)
 ```
 
 Run a linear model based on the data set that we called "senic", but only the parts where "region" has the value "NC"
