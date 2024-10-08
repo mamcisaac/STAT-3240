@@ -214,9 +214,6 @@ solve(t(X) %*% X) %*% t(X)%*% Y
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 5) 1 -->
 
-*  This is a way to find the slope and intercept of a regression model.
-
-* This is using to find the estimated regression coefficients by the matrix method.
 
 ---
 
@@ -225,14 +222,14 @@ solve(t(X) %*% X) %*% t(X)%*% Y
 <!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
 <!-- warm up question 5) 2 -->
 
-*  the matrix approach using matrix to contain the values of error, predictor variables, response variable and other value, and do the operations base on the matrix algebra rules. It should be an efficient way for computer to arrange, store and do the calculations.
 
-* It permits extensive systems of equations and large arrays of data to be denoted compactly and operated upon efficiently.
 
-* **A matrix approach is not needed for simple linear regression, it is easier to use the method we have used earlier. But since we already know simple linear regression it is a good way of introducing matrix approach which will be very useful when we are dealing with multiple regression.**
+
+* A matrix approach is not needed for simple linear regression, it is easier to use the method we have used earlier. But since we already know simple linear regression it is a good way of introducing matrix approach which will be very useful when we are dealing with multiple regression.
 
 
 ---
+
 layout: false
 
 ### Recap: Sections 5.8-5.10 
