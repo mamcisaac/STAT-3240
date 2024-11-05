@@ -15,12 +15,12 @@
  *    - xaringan wiki: https://github.com/yihui/xaringan/wiki
  *    - remarkjs wiki: https://github.com/gnab/remark/wiki
  *
- *  Version: 0.4.2
+ *  Version: 0.4.3
  *
  * ------------------------------------------------------- */
 @import url(https://fonts.googleapis.com/css?family=Montserrat:300,300i&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Droid+Mono&display=swap);
 
 
 :root {
@@ -32,7 +32,7 @@
   --header-font-family: 'Josefin Sans';
   --header-font-is-google: 1;
   --header-font-family-fallback: Georgia, serif;
-  --code-font-family: 'Roboto Mono';
+  --code-font-family: 'Droid Mono';
   --code-font-is-google: 1;
   --base-font-size: 20px;
   --text-font-size: 1rem;

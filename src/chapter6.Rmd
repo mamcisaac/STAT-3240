@@ -245,7 +245,7 @@ class: inverse
 
 ---
 
-### SHS: Simultaneous Estimation
+### SHS: Multiple Regression
 
 
 The Canadian Survey of Household Spending is carried out annually across Canada. 

@@ -345,17 +345,6 @@ with(spending_subset, data.frame(income, food=food_expenditure, sex= sex=="male"
 * The sex category seems to not be equal to zero so I would say that it is a predictor that adds to the error reduction, therefore men and women must spend differently.
 ---
 
-* **Are men and women different in terms of the amount they spend on clothing? Justify your answer.**
-
-<!-- PUT SELECT WARM UP RESPONSES HEREHERE (preceded by a ">"): -->
-<!-- warm up question 7) 2 -->
-
-* Men and women are different in terms of the amount they spend on clothing. When income is zero, the average amount women spend on clothing is 263.9887 dollars, and for men is 0.
-
-* Yes, they are different. We know this because the slope of the male regression line is negative, meaning the females in our dataset spend more on clothes than males.
-
-
----
 
 * **Are all $\beta_k$ equal to 0 here? **
 
